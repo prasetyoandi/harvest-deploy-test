@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kalkulator Cetak Test</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        select {
+            padding: 5px;
+            margin: 5px;
+        }
+    </style>
+    <script>
+        function updatePrice() {
+            const paperType = document.getElementById('paper_type').value;
+            const weight = document.getElementById('weight').value;
+            const size = document.getElementById('size').value;
+            const numPieces = document.getElementById('num_pieces').value;
+            const packingOptions = document.getElementById('packing_options').selectedOptions;
+
+            // Calculate total price
+            const totalPrice = price + cutCost + packingCost;
+
+            // Update the price elements in the HTML
+            document.getElementById('price').textContent = `IDR ${price}`;  // Assuming an element with id "price" exists
+            document.getElementById('cut_cost').textContent = `IDR ${cutCost}`;  // Assuming an element with id "cut_cost" exists
+            document.getElementById('packing_cost').textContent = `IDR ${packingCost}`;  // Assuming an element with id "packing_cost" exists
+            document.getElementById('total_price').textContent = `IDR ${totalPrice}`;  // Assuming an element with id "total_price" exists
+            }
+
+
+        function updatePrice() {
+            const paperType = document.getElementById('paper_type').value;
+            const weight = document.getElementById('weight').value;
+            const size = document.getElementById('size').value;
+            const numPieces = document.getElementById('num_pieces').value;  // Include num_pieces
+            const packingOptions = document.getElementById('packing_options');
+            let packingOptionValues = [];
+            // Iterate through all options, not just selected ones
+            for (let i = 0; i < packingOptions.options.length; i++) {
+                const option = packingOptions.options[i];
+                // Check if the option is currently selected
+                if (option.selected) {
+                packingOptionValues.push(option.value);
+                }
+            }
+
+            const url = new URL(window.location.href);
+            url.searchParams.set('paper_type', paperType);
+            url.searchParams.set('weight', weight);
+            url.searchParams.set('size', size);
+            url.searchParams.set('num_pieces', numPieces);  // Add num_pieces to URL
+            url.searchParams.set('packing_options', packingOptionValues); // Set list of values
+
+            window.location.href = url.toString();
+        }
+    </script>
+</head>
+<body>
+    <h1>Kalkulator Cetak (TEST)</h1>
+    <form method="GET" onchange="updatePrice()">
+        <select id="paper_type" name="paper_type">
+            <option value="AP" {% if paper_type == 'AP' %}selected{% endif %}>Art Paper</option>
+            <option value="DUPLEK" {% if paper_type == 'DUPLEK' %}selected{% endif %}>Duplek</option>
+            <option value="IVORY" {% if paper_type == 'IVORY' %}selected{% endif %}>Ivory</option>
+            <option value="HVS" {% if paper_type == 'HVS' %}selected{% endif %}>HVS</option>
+            <option value="BONTAC" {% if paper_type == 'BONTAC' %}selected{% endif %}>Bontac</option>
+            <option value="BC" {% if paper_type == 'BC' %}selected{% endif %}>BC Tik</option>
+        </select>
+        <select id="weight" name="weight">
+            <option value="120" {% if weight == 120 %}selected{% endif %}>120 gsm</option>
+            <option value="210" {% if weight == 210 %}selected{% endif %}>210 gsm</option>
+        </select>
+        <select id="size" name="size">
+            <option value="10cm x 20cm" {% if size == '10cm x 20cm' %}selected{% endif %}>10cm x 20cm</option>
+            <option value="20cm x 30cm" {% if size == '20cm x 30cm' %}selected{% endif %}>20cm x 30cm</option>
+        </select>
+        Harga Kertas: IDR {{ price }}
+        <br>
+        Number of Pieces:
+        <select id="num_pieces" name="num_pieces">
+            <option value="2" {% if num_pieces == '2' %}selected{% endif %}>2 pieces (IDR 10,000)</option>
+            <option value="4" {% if num_pieces == '4' %}selected{% endif %}>4 pieces (IDR 20,000)</option>
+        </select>
+        Cut Cost: IDR {{ cut_cost }}
+        <br>
+        Finishing:
+        <select id="packing_options" name="packing_options[]" multiple>
+            <option value="TTANPAF">Tanpa Finishing (Rp 0)</option>
+            <option value="POTONGJADI">Potong Jadi (Rp 10,000)</option>
+            <option value="POND">Pond (Rp 20,000)</option>
+            <option value="UV">UV (Rp 50,000)</option>
+            <option value="HOTPRINT">Hot Print (Rp 0)</option>
+            <option value="KLEMSENG">Klemseng (Rp 0)</option>
+            <option value="SPIRAL">Spiral (Rp 0)</option>
+            <option value="EMBOSH">Embosh (Rp 0)</option>
+            <option value="KANTONG">Kantong (Rp 0)</option>
+            <option value="RIT">Rit (Rp 0)</option>
+        </select>
+        Packing Cost: IDR {{ packing_cost }}
+        <br>
+        Total Price: IDR {{ total_price }}
+    </form>
+</body>
+</html>
