@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # python3.9 -m virtualenv venv
 
