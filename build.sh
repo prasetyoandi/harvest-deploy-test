@@ -4,8 +4,8 @@
 
 pip install -r requirements.txt
 
-python manage.py makemigrations --noinput
-python manage.py makemigrations calculate --noinput
-python manage.py migrate --noinput
+python3.9 manage.py makemigrations --noinput
+python3.9 manage.py makemigrations calculate --noinput
+python3.9 manage.py migrate --noinput
 
-python manage.py collectstatic --noinput
+python3.9 manage.py collectstatic --noinput
