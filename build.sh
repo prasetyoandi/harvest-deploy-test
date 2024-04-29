@@ -4,7 +4,7 @@
 
 set -o errexit
 
-python -m pip install -r requirements.txt
+python3.9 -m pip install -r requirements.txt
 
 python manage.py makemigrations --noinput
 python manage.py makemigrations calculate --noinput
