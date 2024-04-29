@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from calculate.views import Calculate
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('users.urls')),
@@ -27,6 +29,10 @@ urlpatterns = [
     path('calculate', Calculate.as_view(), name='calculate')
 
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
 
 # handler404 = 'djangoProject.errorViews.handler404'
 # handler500 = 'djangoProject.errorViews.handler500'
