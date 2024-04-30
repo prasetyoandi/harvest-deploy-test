@@ -87,6 +87,11 @@
     height: auto !important
 }
 
+.kanban-item.dragged {
+    opacity: 0.5;
+    cursor: move;
+}
+
 .gu-mirror {
     position: fixed !important;
     margin: 0 !important;

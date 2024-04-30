@@ -379,9 +379,13 @@
                             ]
                         }
                     ],
+                    dragEl: function (el, source) {
+                        $(el).addClass('dragged');
+                    },
                     dragendEl: function (el) {
                         let eid = $(el).data("eid");
                         let bid = $(el.parentElement.parentElement).data("id");
+                        $(el).removeClass('dragged');
                         jQuery.ajax(`/boards/${eid}/task`, {
                             headers: {"X-CSRFToken": $(`{% csrf_token %}`).val()},
                             type: 'POST',

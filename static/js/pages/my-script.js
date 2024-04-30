@@ -344,13 +344,13 @@ var KTFormWidgetsValidation = function () {
 
                 // Add margin to total cost
                 totalCost = totalCost + marginAmount;
-                // $('#total_cost_display').text('Rp ' + totalCost.toLocaleString('id-ID')); 
+                $('#total_cost_display').text('Rp ' + totalCost.toLocaleString('id-ID')); 
 
                 // Update existing total cost display (without margin)
-                $('#total_cost_display').text('Rp ' + (totalCost - marginAmount).toLocaleString('id-ID'));
+                // $('#total_cost_display').text('Rp ' + (totalCost - marginAmount).toLocaleString('id-ID'));
 
                 // Add a new element to display the final cost with margin
-                $('#total_cost_display').parent().append('<span class="text-danger">Total Cost with Margin: Rp ' + totalCost.toLocaleString('id-ID') + '</span>');
+                // $('#total_cost_display').parent().append('<span class="text-danger">Total Cost with Margin: Rp ' + totalCost.toLocaleString('id-ID') + '</span>');
 
 
                 
