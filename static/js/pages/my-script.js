@@ -222,6 +222,11 @@ var KTFormWidgetsValidation = function () {
         $('#finishing_input').on('input', function () {
             fetchHarga();
         });
+
+        // untuk lain lain
+        $('#lain_input').on('input', function () {
+            fetchHarga();
+        });
         
         // untuk hitung margin
         $('#margin_input').on('input', function () {
@@ -244,6 +249,7 @@ var KTFormWidgetsValidation = function () {
             var laminateQuantity = parseFloat($('#laminasi_input').val()) || 0;
             var selectedFinishing = $('#kt_select2_54').val();
             var finishingQuantity = parseFloat($('#finishing_input').val()) || 0;
+            var lainLainPrice = parseFloat($('#lain_input').val()) || 0;
             var margin = parseFloat($('#margin_input').val()) || 0;  // Get margin value from input field (assuming it exists)
 
 
@@ -336,9 +342,11 @@ var KTFormWidgetsValidation = function () {
                       totalCost += parseFloat(response.harga_finishing);
                     }
                 }
+
+
                 // Update the total cost display
-                var totalCost = totalHargaKertas + parseFloat(response.production_cost) + dregCost + laminateCost + finishingCost;
-                console.log("Calculated Total Cost:", totalCost);
+                var totalCost = totalHargaKertas + parseFloat(response.production_cost) + dregCost + laminateCost + finishingCost + lainLainPrice;
+                $('#lain_display').text('Rp ' + lainLainPrice.toLocaleString('id-ID'));
                 // Calculate margin amount
                 var marginAmount = totalCost * (margin / 100);
 
