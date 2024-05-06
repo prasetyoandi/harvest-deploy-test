@@ -94,8 +94,8 @@
                                                                                   id="kt_select2_70"
                                                                                   name="param">
                                                                                   <option value="">--- Tipe Kertas ---</option>
-                                                                                  {% for value, label in tipe_kertas_choices %}
-                                                                                      <option value="{{ value }}">{{ label }}</option>
+                                                                                  {% for tipe in tipe_kertas_choices %}
+                                                                                      <option value="{{ tipe }}">{{ tipe }}</option>
                                                                                   {% endfor %}
                                                                           </select>
                                                                       </div>
