@@ -266,7 +266,7 @@ var KTFormWidgetsValidation = function () {
                     $('#dreg_display').text('Harga Tidak Tersedia');
                   }
 
-                if (selectedUkuran !== "" && !isNaN(selectedLaminateType) && response.laminateCost !== null) {
+                if (response.laminateCost !== null) {
                     var laminateCost = parseFloat(selectedUkuran) * response.laminateCost * laminateQuantity;
                     $('#laminasi_display').text('Rp ' + laminateCost.toLocaleString('id-ID'));
                 } else {
