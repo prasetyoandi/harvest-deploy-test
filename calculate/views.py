@@ -25,8 +25,6 @@ class Calculate(View):
                 user_in_projects.append(UserInProject(user, p))
 
         # untuk kertas
-        plano_besar_choices = PriceData.objects.values_list('plano_besar', flat=True).distinct()
-        plano_kecil_choices = PriceData.objects.values_list('plano_kecil', flat=True).distinct()
         tipe_kertas_choices = PriceData.objects.values_list('tipe_kertas', flat=True).distinct()
         ukuran_kertas_choices = PriceData.objects.values_list('ukuran_kertas', flat=True).distinct()
 
@@ -34,16 +32,10 @@ class Calculate(View):
         production_cost_choices = ProductionPrice.objects.values_list('production_cost', flat=True).distinct()
         set_warna_choices = ProductionPrice.objects.values_list('set_warna', flat=True).distinct()
 
-        # untuk harga laminasi
-        laminate_length_choices = LaminateCost.objects.values_list('length', flat=True).distinct()
-        laminate_width_choices = LaminateCost.objects.values_list('width', flat=True).distinct()
-
         # untuk harga finishing 
         finishing_cost_choices = FinishingCost.objects.values_list('tipe_finishing', flat=True).distinct()
 
         # selected kertas
-        selected_plano_besar = request.GET.get('plano_besar')
-        selected_plano_kecil = request.GET.get('plano_kecil')
         selected_tipe_kertas = request.GET.get('tipe_kertas')
         selected_ukuran_kertas = request.GET.get('ukuran_kertas')
 
@@ -56,8 +48,6 @@ class Calculate(View):
         selected_ukuran_dreg = request.GET.get('ukuran_dreg')
 
         # selected laminasi cost
-        selected_laminate_length = request.GET.get('length')
-        selected_laminate_width = request.GET.get('width')
         selected_laminate_type = request.GET.get('laminate_type')
 
         # selected finishing cost 
@@ -70,11 +60,9 @@ class Calculate(View):
         finishing_cost_value = None
 
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-            if selected_plano_besar and selected_plano_kecil and selected_tipe_kertas  and selected_ukuran_kertas:
+            if selected_tipe_kertas  and selected_ukuran_kertas:
                 try:
-                    price_data = PriceData.objects.get(plano_besar=selected_plano_besar,
-                                                       plano_kecil=selected_plano_kecil,
-                                                       tipe_kertas=selected_tipe_kertas,
+                    price_data = PriceData.objects.get(tipe_kertas=selected_tipe_kertas,
                                                        ukuran_kertas=selected_ukuran_kertas)
                     harga = price_data.harga
                 except PriceData.DoesNotExist:
@@ -96,12 +84,10 @@ class Calculate(View):
                 except DregCost.DoesNotExist:
                     dreg_cost_value = None
             
-            if selected_laminate_length and selected_laminate_width and selected_laminate_type:
+            if selected_laminate_type:
                 try:
-                    laminate_cost_data = LaminateCost.objects.get(length=selected_laminate_length,
-                                                                width=selected_laminate_width,
-                                                                laminate_type=selected_laminate_type)
-                    laminate_cost_value = laminate_cost_data.harga_laminasi * float(selected_laminate_length) * float(selected_laminate_width)
+                    laminate_cost_data = LaminateCost.objects.get(laminate_type=selected_laminate_type)
+                    laminate_cost_value = laminate_cost_data.harga_laminasi
                 except LaminateCost.DoesNotExist:
                     laminate_cost_value = None
             
@@ -128,23 +114,17 @@ class Calculate(View):
             "u_info": u_info,
             "u_in_p": user_in_projects,
             'time': datetime.today(),
-            "plano_besar_choices": plano_besar_choices,
-            "plano_kecil_choices": plano_kecil_choices,
             "tipe_kertas_choices": tipe_kertas_choices,
             "ukuran_kertas_choices": ukuran_kertas_choices,
             "production_cost_choices": production_cost_choices,
             "set_warna_choices": set_warna_choices,
             "finishing_cost_choices": finishing_cost_choices,
-            "selected_plano_besar": selected_plano_besar,
-            "selected_plano_kecil": selected_plano_kecil,
             "selected_tipe_kertas": selected_tipe_kertas,
             "selected_ukuran_kertas": selected_ukuran_kertas,
             "selected_production_cost": selected_production_cost,
             "selected_set_warna": selected_set_warna,
             'selected_jumlah_dreg': selected_jumlah_dreg,
             'selected_ukuran_dreg': selected_ukuran_dreg,
-            'selected_laminate_length': selected_laminate_length,
-            'selected_laminate_width': selected_laminate_width,
             'selected_laminate_type': selected_laminate_type,
             "selected_finishing_cost": selected_finishing_cost,
             "harga": harga,

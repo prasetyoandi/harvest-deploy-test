@@ -3,7 +3,7 @@ from .models import PriceData, ProductionPrice, LaminateCost, FinishingCost
 
 @admin.register(PriceData)
 class PriceDataAdmin(admin.ModelAdmin):
-    list_display = ('plano_besar', 'plano_kecil', 'tipe_kertas', 'ukuran_kertas', 'harga')
+    list_display = ('tipe_kertas', 'ukuran_kertas', 'harga')
 
 @admin.register(ProductionPrice)
 class ProductionPriceAdmin(admin.ModelAdmin):
@@ -11,7 +11,7 @@ class ProductionPriceAdmin(admin.ModelAdmin):
 
 @admin.register(LaminateCost)
 class LaminateCostAdmin(admin.ModelAdmin):
-    list_display = ('length', 'width', 'get_laminate_type_display', 'harga_laminasi')
+    list_display = ('get_laminate_type_display', 'harga_laminasi')
 
     def get_laminate_type_display(self, obj):
         return obj.get_laminate_type_display()

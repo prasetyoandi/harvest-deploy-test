@@ -1,16 +1,18 @@
 from django.db import models
 from task_manager.models import Project, Task, User, KalkulatorCetak
 
+PAPER_SIZE_CHOICES = [
+    ('100', 'A4'),
+    ('200', 'A3'),
+]
+
 class PriceData(models.Model):
-    # tipe_kertas = models.ForeignKey(KalkulatorCetak, on_delete=models.CASCADE, related_name='harga')  # Foreign key to KalkulatorCetak.tipe_kertas
-    plano_besar = models.CharField(max_length=50)
-    plano_kecil = models.CharField(max_length=50)
     tipe_kertas = models.CharField(max_length=50)
-    ukuran_kertas = models.CharField(max_length=50)  # Paper size
+    ukuran_kertas = models.CharField(max_length=50, choices=PAPER_SIZE_CHOICES)  # Paper size
     harga = models.DecimalField(max_digits=10, decimal_places=2)  # Price per unit
 
     def __str__(self):
-        return f"{self.plano_besar} - {self.plano_kecil} - {self.tipe_kertas} - {self.ukuran_kertas} - Rp{self.harga}"
+        return f"{self.tipe_kertas} - {self.ukuran_kertas} - Rp{self.harga}"
     
 class ProductionPrice(models.Model):
     production_cost = models.CharField(max_length=50)
@@ -26,13 +28,11 @@ class DregCost(models.Model):
     harga_dreg = models.DecimalField(max_digits=10, decimal_places=2)
     
 class LaminateCost(models.Model):
-    length = models.DecimalField(max_digits=10, decimal_places=2)
-    width = models.DecimalField(max_digits=10, decimal_places=2)
     laminate_type = models.DecimalField(max_digits=10, decimal_places=2, choices=[(0, 'No Laminate'), (0.15, '0.15'), (0.2, '0.2')])
     harga_laminasi = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return f"{self.length}cm x {self.width}cm - {self.get_laminate_type_display()} - Rp{self.harga_laminasi}"
+        return f"{self.get_laminate_type_display()} - Rp{self.harga_laminasi}"
     
 class FinishingCost(models.Model):
     tipe_finishing = models.CharField(max_length=50)

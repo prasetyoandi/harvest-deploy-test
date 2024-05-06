@@ -117,20 +117,6 @@ var KTFormWidgetsValidation = function () {
         // untuk kalkulator
         // Select2 kertas
 
-        $('#plano_besar').select2({
-            placeholder: "pilih plano besar",
-        });
-        $('#plano_besar').on('change', function () {
-            fetchHarga();
-        });
-
-        $('#plano_kecil').select2({
-            placeholder: "pilih plano kecil",
-        });
-        $('#plano_kecil').on('change', function () {
-            fetchHarga();
-        });
-
         $('#kt_select2_70').select2({
             placeholder: "pilih kertas",
         });
@@ -179,7 +165,7 @@ var KTFormWidgetsValidation = function () {
         });
 
         $('#ukuran_dreg').select2({
-            placeholder: "Pilih dreg",
+            placeholder: "Pilih dreggggg",
         });
 
         $('#ukuran_dreg').on('change', function () {
@@ -197,14 +183,6 @@ var KTFormWidgetsValidation = function () {
             fetchHarga();
         });
 
-
-
-        $('#laminate_length').on('input', function () {
-            fetchHarga();
-        });
-        $('#laminate_width').on('input', function () {
-            fetchHarga();
-        });
         $('#laminasi_input').on('input', function () {
             fetchHarga();
         });
@@ -235,16 +213,12 @@ var KTFormWidgetsValidation = function () {
 
         function fetchHarga() {
             var selectedTipe = $('#kt_select2_70').val();
-            var selectedPlanoBesar = $('#plano_besar').val();
-            var selectedPlanoKecil = $('#plano_kecil').val();
             var selectedUkuran = $('#kt_select2_72').val();
             var kertasQuantity = parseFloat($('#kertas_input').val()) || 0;
             var selectedOngkos = $('#kt_select2_82').val();
             var selectedJumlahDreg = parseFloat($('#jumlah_dreg').val());
             var selectedUkuranDreg = $('#ukuran_dreg').val();
             var selectedSetWarna = $('#kt_select2_setwarna').val();
-            var selectedLaminateLength = parseFloat($('#laminate_length').val());
-            var selectedLaminateWidth = parseFloat($('#laminate_width').val());
             var selectedLaminateType = $('#kt_select2_83').val();
             var laminateQuantity = parseFloat($('#laminasi_input').val()) || 0;
             var selectedFinishing = $('#kt_select2_54').val();
@@ -258,8 +232,6 @@ var KTFormWidgetsValidation = function () {
               url: '/calculate/',
               method: 'GET',
               data: {
-                'plano_besar': selectedPlanoBesar,
-                'plano_kecil': selectedPlanoKecil,
                 'tipe_kertas': selectedTipe,
                 'ukuran_kertas': selectedUkuran,
                 'kertas_quantity': kertasQuantity,
@@ -267,8 +239,6 @@ var KTFormWidgetsValidation = function () {
                 'set_warna': selectedSetWarna,
                 'jumlah_dreg': selectedJumlahDreg,
                 'ukuran_dreg': selectedUkuranDreg,
-                'laminate_length': selectedLaminateLength,
-                'laminate_width': selectedLaminateWidth,
                 'laminate_type': selectedLaminateType,
                 'laminate_quantity': laminateQuantity,
                 'tipe_finishing': selectedFinishing.join(','),
@@ -296,13 +266,12 @@ var KTFormWidgetsValidation = function () {
                     $('#dreg_display').text('Harga Tidak Tersedia');
                   }
 
-                if (selectedLaminateType !== "" && !isNaN(selectedLaminateLength) && !isNaN(selectedLaminateWidth)) {
-                    var laminateArea = selectedLaminateLength * selectedLaminateWidth;
-                    var laminateCost = laminateArea * parseFloat(selectedLaminateType) * laminateQuantity;  // Assuming price stored in laminate type value
+                if (selectedUkuran !== "" && !isNaN(selectedLaminateType) && response.laminateCost !== null) {
+                    var laminateCost = parseFloat(selectedUkuran) * response.laminateCost * laminateQuantity;
                     $('#laminasi_display').text('Rp ' + laminateCost.toLocaleString('id-ID'));
-                  } else {
+                } else {
                     $('#laminasi_display').text('Harga Tidak Tersedia');  // Display placeholder if data incomplete
-                  }
+                }
 
                 if (response.harga_finishing !== null) {
                     var finishingCost = 0;
