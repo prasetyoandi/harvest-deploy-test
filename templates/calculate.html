@@ -109,8 +109,8 @@
                                                                                   id="kt_select2_72"
                                                                                   name="param">
                                                                                   <option value="">--- Tipe Kertas ---</option>
-                                                                                  {% for ukuran in ukuran_kertas_choices %}
-                                                                                      <option value="{{ ukuran }}">{{ ukuran }}</option>
+                                                                                  {% for ukuran, label in ukuran_kertas_choices %}
+                                                                                      <option value="{{ ukuran }}">{{ label }}</option>
                                                                                   {% endfor %}
                                                                           </select>
                                                                       </div>
