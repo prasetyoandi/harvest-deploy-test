@@ -267,7 +267,7 @@ var KTFormWidgetsValidation = function () {
                   }
 
                 if (response.laminateCost !== null) {
-                    var laminateCost = parseFloat(selectedUkuran) * laminateQuantity;
+                    var laminateCost = parseFloat(selectedUkuran) * parseFloat(selectedLaminateType) * laminateQuantity;
                     $('#laminasi_display').text('Rp ' + laminateCost.toLocaleString('id-ID'));
                 } else {
                     $('#laminasi_display').text('Harga Tidak Tersedia');  // Display placeholder if data incomplete
