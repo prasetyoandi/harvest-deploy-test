@@ -214,6 +214,35 @@ var KTFormWidgetsValidation = function () {
             fetchHarga();
         });
 
+        // button for generating details table
+        $('#generate_table').on('click', function() {
+            const detailsTable = $('#details-table');
+            const tableBody = detailsTable.find('tbody');
+
+            // Clear any existing rows
+            tableBody.empty();
+
+            // Add rows for each item
+            addTableRow(tableBody, 'Paper', `${$('#kt_select2_70').val()} (${$('#kt_select2_72').val()})`, $('#kertas_input').val(), $('#harga_display').text());
+            addTableRow(tableBody, 'Production Cost', `${$('#kt_select2_82').val()} (${$('#kt_select2_setwarna').val()} sets)`, $('#set_input').val(), $('#ongkos_display').text());
+            addTableRow(tableBody, 'Dreg', `${$('#jumlah_dreg').val()} pieces (${$('#ukuran_dreg').val()} rupiah)`, $('#jumlah_dreg').val(), $('#dreg_display').text());
+            addTableRow(tableBody, 'Lamination', $('#kt_select2_83').val(), $('#laminasi_input').val(), $('#laminasi_display').text());
+            addTableRow(tableBody, 'Finishing', $('#kt_select2_54').val(), $('#finishing_input').val(), $('#finishing_display').text());
+            addTableRow(tableBody, 'Cutting Blade', '', '', $('#pisau_display').text());
+
+            // Toggle the table visibility
+            detailsTable.toggle();
+        });
+
+        function addTableRow(tableBody, item, description, quantity, cost) {
+            const row = $('<tr>');
+            row.append($('<td>').text(item));
+            row.append($('<td>').text(description));
+            row.append($('<td>').text(quantity));
+            row.append($('<td>').text(cost));
+            tableBody.append(row);
+        }
+
         function fetchHarga() {
             var selectedTipe = $('#kt_select2_70').val();
             var selectedUkuran = $('#kt_select2_72').val();
