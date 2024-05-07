@@ -149,8 +149,8 @@
                                                                                   id="kt_select2_82"
                                                                                   name="param">
                                                                                   <option value="">--- Select Ongkosan ---</option>
-                                                                                  {% for prod in production_cost_choices %}
-                                                                                      <option value="{{ prod }}">{{ prod }}</option>
+                                                                                  {% for value, label in production_cost_choices %}
+                                                                                      <option value="{{ value }}">{{ label }}</option>
                                                                                   {% endfor %}
                                                                           </select>
                                                                       </div>
@@ -317,11 +317,11 @@
                                                           <!-- end finishing -->
                                                           <!-- start lain-lain -->
                                                           <div class="row">
-                                                            <div class="col-6">
+                                                            <div class="col-8">
                                                                 <div class="form-group">
-                                                                        <label>Lain-Lain
+                                                                        <label>Pisau
                                                                             <span class="text-danger">*</span></label><br>
-                                                                            <span>Masukan harga tambahan seperti; Pisau Kecil, Sedang, Atau Besar (dalam Rupiah)</span>
+                                                                            <span>Harga pisau otomatis berdasarkan mesin yang dipilih</span>
                                                                     </div>
                                                             </div>
                                                             <div class="col-2">
@@ -330,17 +330,9 @@
                                                                 </div>
                                                               </div>
                                                             <div class="col-2">
-                                                                <div class="form-group">
-                                                                  <label>Jumlah
-                                                                    <span class="text-danger">*</span>
-                                                                  </label>
-                                                                  <input type="number" class="form-control" id="lain_input" name="lain_input" step="0.01" required>
-                                                                </div>
-                                                              </div>
-                                                            <div class="col-2">
                                                                 <div class="d-flex flex-column text-md-right">
                                                                     <span class="font-size-lg font-weight-bolder mb-1">Harga</span>
-                                                                        <span id="lain_display" class="font-size-h2 font-weight-boldest text-danger mb-1"></span>
+                                                                        <span id="pisau_display" class="font-size-h2 font-weight-boldest text-danger mb-1"></span>
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -279,6 +279,13 @@ var KTFormWidgetsValidation = function () {
                     $('#laminasi_display').text('Harga Tidak Tersedia');  // Display placeholder if data incomplete
                 }
 
+                if (response.pisauPrice !== null){
+                    var pisauPrice = parseFloat(selectedOngkos);
+                    $('#pisau_display').text('Rp ' + pisauPrice.toLocaleString('id-ID'));
+                } else {
+                    $('#pisau_display').text('Harga Tidak Tersedia');  // Display placeholder if data incomplete
+                }
+
                 if (response.harga_finishing !== null) {
                     var finishingCost = 0;
                     if (typeof response.harga_finishing === 'object' && response.harga_finishing !== null) {
@@ -320,8 +327,8 @@ var KTFormWidgetsValidation = function () {
 
 
                 // Update the total cost display
-                var totalCost = totalHargaKertas + totalOngkosCetak + dregCost + laminateCost + finishingCost + lainLainPrice;
-                $('#lain_display').text('Rp ' + lainLainPrice.toLocaleString('id-ID'));
+                var totalCost = totalHargaKertas + totalOngkosCetak + dregCost + laminateCost + finishingCost + pisauPrice;
+                $('#pisau_display').text('Rp ' + pisauPrice.toLocaleString('id-ID'));
                 // Calculate margin amount
                 var marginAmount = totalCost * (margin / 100);
 

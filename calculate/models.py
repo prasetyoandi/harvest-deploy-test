@@ -25,9 +25,16 @@ class PriceData(models.Model):
 
     def __str__(self):
         return f"{self.tipe_kertas} - {self.ukuran_kertas} - Rp{self.harga}"
-    
+
+MESIN_CHOICES = [
+    ('300000', '0V 52'),
+    ('350000', '0V 58'),
+    ('450000', '0V 66'),
+    ('500000', '0V 72'),
+]
+
 class ProductionPrice(models.Model):
-    production_cost = models.CharField(max_length=50)
+    production_cost = models.CharField(max_length=50, choices=MESIN_CHOICES)
     set_warna = models.CharField(max_length=50)
     harga_produksi = models.DecimalField(max_digits=10, decimal_places=2)  # Price per uni
 
