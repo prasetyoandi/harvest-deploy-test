@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views import View
 from datetime import datetime
 from task_manager.models import Project, KalkulatorCetak
-from .models import ProjectInfo, UserInfo, UserInProject, PriceData, ProductionPrice, DregCost, LaminateCost, FinishingCost
+from .models import ProjectInfo, UserInfo, UserInProject, PriceData, ProductionPrice, DregCost, LaminateCost, FinishingCost, PAPER_SIZE_CHOICES
 
 class Calculate(View):
     def get(self, request):
@@ -115,7 +115,7 @@ class Calculate(View):
             "u_in_p": user_in_projects,
             'time': datetime.today(),
             "tipe_kertas_choices": tipe_kertas_choices,
-            "ukuran_kertas_choices": ukuran_kertas_choices,
+            "ukuran_kertas_choices": PAPER_SIZE_CHOICES,
             "production_cost_choices": production_cost_choices,
             "set_warna_choices": set_warna_choices,
             "finishing_cost_choices": finishing_cost_choices,
