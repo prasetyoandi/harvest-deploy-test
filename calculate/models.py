@@ -2,7 +2,7 @@ from django.db import models
 from task_manager.models import Project, Task, User, KalkulatorCetak
 
 PAPER_SIZE_CHOICES = [
-    ('1617', '33 x 49'),
+    ('1617', '31 x 49'),
     ('2144', '31.5 x 64'),
     ('3072', '48 x 64'),
     ('6500', '65 x 100'),
