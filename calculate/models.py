@@ -2,8 +2,20 @@ from django.db import models
 from task_manager.models import Project, Task, User, KalkulatorCetak
 
 PAPER_SIZE_CHOICES = [
-    ('100', 'A4'),
-    ('200', 'A3'),
+    ('1617', '33 x 49'),
+    ('2144', '31.5 x 64'),
+    ('3072', '48 x 64'),
+    ('6500', '65 x 100'),
+    ('1782', '33 x 54'),
+    ('3519', '51 x 69'),
+    ('1254', '33 x 38'),
+    ('1419', '33 x 43'),
+    ('2014', '38 x 53'),
+    ('2518.5', '34.5 x 73'),
+    ('2584', '38 x 68'),
+    ('3723', '51 x 73'),
+    ('4134', '53 x 78'),
+    ('8611', '79 x 109'),
 ]
 
 class PriceData(models.Model):
