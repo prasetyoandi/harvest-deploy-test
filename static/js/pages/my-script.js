@@ -158,6 +158,9 @@ var KTFormWidgetsValidation = function () {
         $('#kt_select2_setwarna').on('change', function () {
             fetchHarga();
         });
+        $('#set_input').on('input', function () {
+            fetchHarga();
+        });
 
         // untuk harga dreg
         $('#jumlah_dreg').on('input', function () {
@@ -219,6 +222,7 @@ var KTFormWidgetsValidation = function () {
             var selectedJumlahDreg = parseFloat($('#jumlah_dreg').val());
             var selectedUkuranDreg = $('#ukuran_dreg').val();
             var selectedSetWarna = $('#kt_select2_setwarna').val();
+            var jumlahSet = parseFloat($('#set_input').val()) || 0;
             var selectedLaminateType = $('#kt_select2_83').val();
             var laminateQuantity = parseFloat($('#laminasi_input').val()) || 0;
             var selectedFinishing = $('#kt_select2_54').val();
@@ -237,6 +241,7 @@ var KTFormWidgetsValidation = function () {
                 'kertas_quantity': kertasQuantity,
                 'production_cost': selectedOngkos,
                 'set_warna': selectedSetWarna,
+                'jumlah_set': jumlahSet,
                 'jumlah_dreg': selectedJumlahDreg,
                 'ukuran_dreg': selectedUkuranDreg,
                 'laminate_type': selectedLaminateType,
@@ -253,7 +258,8 @@ var KTFormWidgetsValidation = function () {
                 }
           
                 if (response.production_cost !== null) {
-                  $('#ongkos_display').text('Rp ' + parseFloat(response.production_cost).toLocaleString('id-ID'));
+                    var totalOngkosCetak = parseFloat(response.production_cost) * jumlahSet
+                  $('#ongkos_display').text('Rp ' + totalOngkosCetak.toLocaleString('id-ID'));
                 } else {
                   $('#ongkos_display').text('Harga Tidak Tersedia');
                 }
@@ -314,7 +320,7 @@ var KTFormWidgetsValidation = function () {
 
 
                 // Update the total cost display
-                var totalCost = totalHargaKertas + parseFloat(response.production_cost) + dregCost + laminateCost + finishingCost + lainLainPrice;
+                var totalCost = totalHargaKertas + totalOngkosCetak + dregCost + laminateCost + finishingCost + lainLainPrice;
                 $('#lain_display').text('Rp ' + lainLainPrice.toLocaleString('id-ID'));
                 // Calculate margin amount
                 var marginAmount = totalCost * (margin / 100);
