@@ -230,6 +230,15 @@ var KTFormWidgetsValidation = function () {
             addTableRow(tableBody, 'Finishing', $('#kt_select2_54').val(), $('#finishing_input').val(), $('#finishing_display').text());
             addTableRow(tableBody, 'Cutting Blade', '', '', $('#pisau_display').text());
 
+            // Add margin row
+            const margin = parseFloat($('#margin_input').val()) || 0;
+            const marginAmount = parseFloat($('#total_cost_display').text().replace(/[^0-9.-]+/g, "")) * (margin / 100);
+            addTableRow(tableBody, 'Margin', `${margin}%`, '', `Rp ${marginAmount.toLocaleString('id-ID')}`);
+
+            // Add total price row
+            const totalPrice = parseFloat($('#total_cost_display').text().replace(/[^0-9.-]+/g, ""));
+            addTableRow(tableBody, 'Total Price', '', '', `Rp ${totalPrice.toLocaleString('id-ID')}`);
+
             // Toggle the table visibility
             detailsTable.toggle();
         });
