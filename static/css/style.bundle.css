@@ -51308,7 +51308,7 @@ a.text-hover-warning:hover .svg-icon svg:hover g [fill],
 }
 
 .text-danger {
-  color: #F64E60 !important;
+  color: red !important;
 }
 
 .text-inverse-danger {
