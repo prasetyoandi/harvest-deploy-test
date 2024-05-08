@@ -214,6 +214,18 @@ var KTFormWidgetsValidation = function () {
             fetchHarga();
         });
 
+        function addTableRow(tableBody, item, description, quantity, cost, bold) {
+            const row = $('<tr>');
+            row.append($('<td>').text(item));
+            row.append($('<td>').text(description));
+            row.append($('<td>').text(quantity));
+            row.append($('<td>').text(cost));
+            if (bold) {
+                row.addClass('bold-row');
+            }
+            tableBody.append(row);
+        }
+
         // button for generating details table
         $('#generate_table').on('click', function() {
             const detailsTable = $('#details-table');
@@ -241,15 +253,6 @@ var KTFormWidgetsValidation = function () {
             // Toggle the table visibility
             detailsTable.toggle();
         });
-
-        function addTableRow(tableBody, item, description, quantity, cost) {
-            const row = $('<tr>');
-            row.append($('<td>').text(item));
-            row.append($('<td>').text(description));
-            row.append($('<td>').text(quantity));
-            row.append($('<td>').text(cost));
-            tableBody.append(row);
-        }
 
         function fetchHarga() {
             var selectedTipe = $('#kt_select2_70').val();
