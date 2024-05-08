@@ -236,8 +236,7 @@ var KTFormWidgetsValidation = function () {
             addTableRow(tableBody, 'Margin', `${margin}%`, '', `Rp ${marginAmount.toLocaleString('id-ID')}`);
 
             // Add total price row
-            const totalPrice = parseFloat($('#total_cost_display').text().replace(/[^0-9.-]+/g, ""));
-            addTableRow(tableBody, 'Total Price', '', '', `Rp ${totalPrice.toLocaleString('id-ID', { minimumFractionDigits: 2 })}`);
+            addTableRow(tableBody, 'Total Price', '', '', $('#total_cost_display').text());
 
             // Toggle the table visibility
             detailsTable.toggle();
