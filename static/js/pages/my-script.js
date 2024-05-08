@@ -233,11 +233,11 @@ var KTFormWidgetsValidation = function () {
             // Add margin row
             const margin = parseFloat($('#margin_input').val()) || 0;
             const marginAmount = parseFloat($('#total_cost_display').text().replace(/[^0-9.-]+/g, "")) * (margin / 100);
-            addTableRow(tableBody, 'Margin', `${margin}%`, '', `Rp ${marginAmount.toLocaleString('id-ID')}`);
+            addTableRow(tableBody, 'Margin', `${margin}%`, '', formatCurrency(marginAmount));
 
             // Add total price row
             const totalPrice = parseFloat($('#total_cost_display').text().replace(/[^0-9.-]+/g, ""));
-            addTableRow(tableBody, 'Total Price', '', '', `Rp ${totalPrice.toLocaleString('id-ID')}`);
+            addTableRow(tableBody, 'Total Price', '', '', formatCurrency(totalPrice));
 
             // Toggle the table visibility
             detailsTable.toggle();
@@ -247,9 +247,13 @@ var KTFormWidgetsValidation = function () {
             const row = $('<tr>');
             row.append($('<td>').text(item));
             row.append($('<td>').text(description));
-            row.append($('<td>').text(quantity));
+            row.append($('<td>').text(parseFloat(quantity) % 1 === 0 ? quantity : quantity.toFixed(2)));
             row.append($('<td>').text(cost));
             tableBody.append(row);
+        }
+
+        function formatCurrency(amount) {
+            return `Rp ${Math.round(amount).toLocaleString('id-ID')}`;
         }
 
         function fetchHarga() {
