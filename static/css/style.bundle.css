@@ -27324,6 +27324,11 @@ button.bg-white:focus {
   font-weight: 500 !important;
 }
 
+.bold-row {
+  font-weight: bold;
+  color: red;
+}
+
 .font-weight-bolder {
   font-weight: 600 !important;
 }

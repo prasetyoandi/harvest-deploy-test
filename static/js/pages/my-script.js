@@ -223,20 +223,20 @@ var KTFormWidgetsValidation = function () {
             tableBody.empty();
 
             // Add rows for each item
-            addTableRow(tableBody, 'Paper', `${$('#kt_select2_70').val()} (${$('#kt_select2_72').val()})`, $('#kertas_input').val(), $('#harga_display').text());
-            addTableRow(tableBody, 'Production Cost', `${$('#kt_select2_82').val()} (${$('#kt_select2_setwarna').val()} sets)`, $('#set_input').val(), $('#ongkos_display').text());
+            addTableRow(tableBody, 'Kertas', `${$('#kt_select2_70').val()} (${$('#kt_select2_72').val()})`, $('#kertas_input').val(), $('#harga_display').text());
+            addTableRow(tableBody, 'Mesin/warna/set', `${$('#kt_select2_82').val()} (${$('#kt_select2_setwarna').val()} sets)`, $('#set_input').val(), $('#ongkos_display').text());
             addTableRow(tableBody, 'Dreg', `${$('#jumlah_dreg').val()} pieces (${$('#ukuran_dreg').val()} rupiah)`, $('#jumlah_dreg').val(), $('#dreg_display').text());
-            addTableRow(tableBody, 'Lamination', $('#kt_select2_83').val(), $('#laminasi_input').val(), $('#laminasi_display').text());
+            addTableRow(tableBody, 'Laminasi', $('#kt_select2_83').val(), $('#laminasi_input').val(), $('#laminasi_display').text());
             addTableRow(tableBody, 'Finishing', $('#kt_select2_54').val(), $('#finishing_input').val(), $('#finishing_display').text());
-            addTableRow(tableBody, 'Cutting Blade', '', '', $('#pisau_display').text());
+            addTableRow(tableBody, 'Pisau', '', '', $('#pisau_display').text());
 
             // Add margin row
             const margin = parseFloat($('#margin_input').val()) || 0;
-            const marginAmount = parseFloat($('#total_cost_display').text().replace(/[^0-9.-]+/g, "")) * (margin / 100) * 10000;
+            const marginAmount = parseFloat($('#total_cost_display').text().replace(/[^0-9.-]+/g, "")) * (margin / 100) * 1000000;
             addTableRow(tableBody, 'Margin', `${margin}%`, '', `Rp ${marginAmount.toLocaleString('id-ID')}`);
 
             // Add total price row
-            addTableRow(tableBody, 'Total Price', '', '', $('#total_cost_display').text());
+            addTableRow(tableBody, 'Total Harga', '', '', $('#total_cost_display').text(), true);
 
             // Toggle the table visibility
             detailsTable.toggle();
