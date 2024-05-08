@@ -232,7 +232,7 @@ var KTFormWidgetsValidation = function () {
 
             // Add margin row
             const margin = parseFloat($('#margin_input').val()) || 0;
-            const marginAmount = parseFloat($('#total_cost_display').text().replace(/[^0-9.-]+/g, "")) * (margin / 100);
+            const marginAmount = parseInt($('#total_cost_display').text().replace(/[^0-9.-]+/g, ""), 10) * (margin / 100);
             addTableRow(tableBody, 'Margin', `${margin}%`, '', `Rp ${marginAmount.toLocaleString('id-ID')}`);
 
             // Add total price row
