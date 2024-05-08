@@ -204,10 +204,15 @@ var KTFormWidgetsValidation = function () {
             fetchHarga();
         });
 
-        // untuk lain lain
+        // untuk pisau
         $('#lain_input').on('input', function () {
             fetchHarga();
         });
+
+        $('#manualInputCheckbox').change(function() {
+            fetchHarga();
+        });
+        
         
         // untuk hitung margin
         $('#margin_input').on('input', function () {
@@ -367,14 +372,35 @@ var KTFormWidgetsValidation = function () {
 
 
                 // Update the total cost display
-                var totalCost = totalHargaKertas + totalOngkosCetak + dregCost + laminateCost + finishingCost + pisauPrice;
-                $('#pisau_display').text('Rp ' + pisauPrice.toLocaleString('id-ID'));
+                var totalCost = totalHargaKertas + totalOngkosCetak + dregCost + laminateCost + finishingCost;
+
+                // Check if the manual input checkbox is checked
+                if ($('#manualInputCheckbox').is(':checked')) {
+                    // Calculate the pisau price only if manual input checkbox is checked
+                    if (response.pisauPrice !== null) {
+                        var pisauPrice = parseFloat(selectedOngkos);
+                        $('#pisau_display').text('Rp ' + pisauPrice.toLocaleString('id-ID'));
+                    } else {
+                        $('#pisau_display').text('Harga Tidak Tersedia');  // Display placeholder if data incomplete
+                    }
+                } else {
+                    // If manual input checkbox is not checked, disable the calculation for pisau price
+                    $('#pisau_display').text(''); // Clear the pisau_display
+                    pisauPrice = 0; // Set pisauPrice to 0 or any default value as per your requirement
+                }
+
+                // Calculate the total cost including pisau price
+                totalCost += pisauPrice;
+
                 // Calculate margin amount
                 var marginAmount = totalCost * (margin / 100);
 
                 // Add margin to total cost
                 totalCost = totalCost + marginAmount;
-                $('#total_cost_display').text('Rp ' + totalCost.toLocaleString('id-ID')); 
+
+                // Update the total cost display
+                $('#total_cost_display').text('Rp ' + totalCost.toLocaleString('id-ID'));
+
 
                 // Update existing total cost display (without margin)
                 // $('#total_cost_display').text('Rp ' + (totalCost - marginAmount).toLocaleString('id-ID'));
