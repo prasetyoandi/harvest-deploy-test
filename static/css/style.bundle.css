@@ -27382,7 +27382,7 @@ a.text-warning:hover, a.text-warning:focus {
 }
 
 .text-danger {
-  color: #F64E60 !important;
+  color: red !important;
 }
 
 a.text-danger:hover, a.text-danger:focus {
