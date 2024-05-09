@@ -390,8 +390,6 @@
                         let eid = $(el).data("eid");
                         let bid = $(el.parentElement.parentElement).data("id");
                         $(el).removeClass('dragged');
-                        // Touch events
-                        el.addEventListener('touchend', touchEnd, false);
                         jQuery.ajax(`/boards/${eid}/task`, {
                             headers: {"X-CSRFToken": $(`{% csrf_token %}`).val()},
                             type: 'POST',
