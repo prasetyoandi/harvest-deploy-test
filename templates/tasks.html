@@ -381,10 +381,6 @@
                     ],
                     dragEl: function (el, source) {
                         $(el).addClass('dragged');
-                        // Touch events
-                        el.addEventListener('touchstart', touchStart, false);
-                        el.addEventListener('touchmove', touchMove, false);  // Add touchmove event
-                        el.addEventListener('touchend', touchEnd, false);
                     },
                     dragendEl: function (el) {
                         let eid = $(el).data("eid");
