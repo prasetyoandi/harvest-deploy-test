@@ -82833,6 +82833,13 @@ body.swal2-height-auto {
   max-width: none;
 }
 
+.dragged {
+  position: fixed;
+  z-index: 1000; /* Ensure dragged element appears above other elements */
+  opacity: 0.8; /* Adjust opacity to indicate dragging */
+  pointer-events: none; /* Allow touch events to pass through the dragged element */
+}
+
 .draggable {
   -webkit-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease;

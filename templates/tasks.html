@@ -229,11 +229,7 @@
 
         // Class definition
         var KTKanbanBoardDemo = function () {
-            // Track touch position
-            var touchX, touchY;
-            
-            // Track if touch is active
-            var touchActive = false;
+            var kanban;
 
             // Private functions
             var _demo4 = function () {
@@ -427,35 +423,39 @@
 
                 // Touch start event handler
                 function touchStart(event) {
-                    touchActive = true;
-                    touchX = event.touches[0].clientX;
-                    touchY = event.touches[0].clientY;
+                    // Prevent default touch behavior
+                    event.preventDefault();
+
+                    // Add class for dragged element
+                    event.target.classList.add('dragged')
                 }
 
                 // Touch move event handler
                 function touchMove(event) {
-                    if (!touchActive) return;
-
-                    var dx = event.touches[0].clientX - touchX;
-                    var dy = event.touches[0].clientY - touchY;
+                    // Prevent default touch behavior
+                    event.preventDefault();
 
                     // Update element position
-                    // Implement your logic to move the dragged element
-                    // Example: el.style.transform = `translate(${dx}px, ${dy}px)`;
+                    var draggedItem = document.querySelector('.dragged');
+                    var touch = event.touches[0];
+                    draggedItem.style.left = touch.clientX + 'px';
+                    draggedItem.style.top = touch.clientY + 'px';
                 }
 
                 // Touch end event handler
                 function touchEnd(event) {
-                    if (!touchActive) return;
-
-                    // Reset touch active state
-                    touchActive = false;
+                    // Prevent default touch behavior
+                    event.preventDefault();
 
                     // Remove class for dragged element
-                    $(this).removeClass('dragged');
+                    var draggedItem = document.querySelector('.dragged');
+                    draggedItem.classList.remove('dragged');
 
                     // Implement your logic to drop the element
                     // Example: Update task status or position based on drop location
+                    // var dropLocation = event.target.getAttribute('data-id');
+                    // var draggedItemId = draggedItem.getAttribute('data-eid');
+                    // UpdateTaskStatus(draggedItemId, dropLocation);
                 }
             }
 
