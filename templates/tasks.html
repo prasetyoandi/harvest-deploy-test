@@ -207,9 +207,55 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            {% for status in status_choices %}
+                                <!-- <button type="button" class="btn btn-primary change-status-btn" data-task-id="{{ t.id }}" data-status="{{ status.0 }}">{{ status.1 }}</button> -->
+                            {% endfor %}
+                            <button type="button" class="btn btn-primary change-status-btn" data-task-id="{{ t.id }}" data-status="T">To Do</button>
+                            <button type="button" class="btn btn-primary change-status-btn" data-task-id="{{ t.id }}" data-status="D">Doing</button>
+                            <!-- Add more buttons for other statuses -->
+                        </div>
                     </div>
                 </div>
             </div>
+            <script>
+                var csrfToken = '{{ csrf_token }}';
+
+                $(document).ready(function() {
+                  // Change Status button click handler
+                  $('.change-status-btn').click(function(event) {
+                    var taskId = $(this).data('task-id');
+                    var status = $(this).data('status');
+                    console.log('Task ID:', taskId, 'New Status:', newStatus);
+                    // Send an AJAX request to the appropriate Django view (see your views.py code)
+                    $.ajax({
+                      url: '/boards/' + taskId + '/task/',
+                      type: 'POST',
+                      data: {
+                        '_token': csrfToken,
+                        'type': 'change_status',
+                        'task_id': taskId,
+                        'new_status': newStatus
+                      },
+                      success: function(response) {
+                        if (response.success) {
+                            // Handle successful status update (e.g., close modal, update Kanban.js)
+                            $('#task-details-' + taskId).modal('hide');
+                            // Update Kanban.js data source if needed (using Kanban.js API)
+                        } else {
+                            // Handle error case (e.g., display error message)
+                            console.error('Error changing task status:', response.error);
+                        }
+                      },
+                      error: function(error) {
+                        // Handle error cases (e.g., display error message)
+                        console.error('Error changing task status:', error);
+                      }
+                    });
+                  });
+                });
+                </script>
         {% endfor %}
         <!--end::Entry-->
     </div>

@@ -143,8 +143,6 @@ class KalkulatorCetak(models.Model):
         return self.tipe_kertas  # Customize this for a more informative string representation
 
 class Task(models.Model):    
-    # name = models.CharField(max_length=50)
-    # description = models.CharField(max_length=200)
     assigned_to = models.ForeignKey(User, on_delete=models.CASCADE)
     status_choices = (
         ('T', 'To Do'),

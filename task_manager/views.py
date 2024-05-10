@@ -163,8 +163,6 @@ class Tasks(View):
         if not request.user.is_authenticated:
             return redirect('signIn')
 
-        # name = request.POST['name']
-        # m = request.POST['desc']
         assigned_to = request.POST['users']
         status = 'T'
         end_time = request.POST['date']
@@ -184,12 +182,11 @@ class ManegeTasks(View):
             return response
 
         user = request.user
-
         type = request.POST['type']
+
         if type == 'edit_status':
             task_id = request.POST['task_id']
             status = request.POST['board_id']
-
             task = Task.objects.filter(id=task_id).first()
 
             if status in ['O', 'B', 'L'] or task.status in ['O', 'B', 'L']:
@@ -215,6 +212,22 @@ class ManegeTasks(View):
             response = JsonResponse({"message": "OK"})
             response.status_code = 200
             return response
+        
+        elif type == 'change_status':
+            task_id = request.POST['task_id']
+            new_status = request.POST['new_status']
+            try:
+                task = Task.objects.get(id=task_id)
+                if new_status and new_status in [choice[0] for choice in Task.status_choices]:
+                    task.status = new_status
+                    task.save()
+                    return JsonResponse({'success': True})
+                else:
+                    return JsonResponse({'success': False, 'error': 'Invalid status'})
+            except Task.DoesNotExist:
+                return JsonResponse({'success': False, 'error': 'Task not found'})
+            except Exception as e:
+                return JsonResponse({'success': False, 'error': str(e)})
 
         if type == 'edit_end_time':
 
