@@ -114,6 +114,42 @@ var KTFormWidgetsValidation = function () {
             validator.revalidateField('ukuran_bahan');
         });
 
+
+
+        // UNTUK MANAGE TASK BUTTON
+
+        // Add event listener for change status button
+        $('.change-status-btn').click(function(event) {
+            var taskId = $(this).data('task-id');
+            var newStatus = $(this).data('status');
+            console.log('Task ID:', taskId, 'New Status:', newStatus);
+
+            // Send AJAX request to update task status
+            $.ajax({
+                url: '/boards/' + taskId + '/task/',
+                type: 'POST',
+                data: {
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(), // Get CSRF token
+                    'type': 'change_status',
+                    'task_id': taskId,
+                    'new_status': newStatus
+                },
+                success: function(response) {
+                    if (response.success) {
+                        console.log('Task status changed successfully');
+                        // Optionally, update UI here
+                    } else {
+                        console.error('Error changing task status:', response.error);
+                    }
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.error('Error changing task status:', errorThrown);
+                }
+            });
+        });
+
+
+
         // untuk kalkulator
         // Select2 kertas
 

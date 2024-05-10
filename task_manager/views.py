@@ -176,6 +176,8 @@ class Tasks(View):
 
 class ManegeTasks(View):
     def post(self, request, id):
+        print('Received POST request to ManegeTasks view')
+        print('Request POST data:', request.POST)
         if not request.user.is_authenticated:
             response = JsonResponse({"error": "Invalid User"})
             response.status_code = 403
