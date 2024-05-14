@@ -184,21 +184,24 @@ class ManegeTasks(View):
         user = request.user
         type = request.POST['type']
 
-        if type == 'edit_status':
+        if type == 'edit_status' or type == 'chane_status':
             task_id = request.POST['task_id']
-            status = request.POST['board_id']
+            new_status = request.POST['board_id'] if type == 'edit_status' else request.POST['new_status']
             task = Task.objects.filter(id=task_id).first()
 
-            if status in ['O', 'B', 'L'] or task.status in ['O', 'B', 'L']:
+            if not task:
+                return JsonResponse({'error': 'Task not found'}, status=404)
+
+            if new_status in ['O', 'B', 'L'] or task.status in ['O', 'B', 'L']:
                 if user == task.project.owner:
-                    task.status = status
+                    task.status = new_status
                     task.save()
                 else:
                     return JsonResponse({"error": "You Do Not Have Permission"}, status=403)
             else:
                 if user == task.assigned_to or user == task.project.owner:
-                    task.status = status
-                    if status == 'D':
+                    task.status = new_status
+                    if new_status == 'D':
                         task.start_time = datetime.datetime.today().date()
                     task.save()
                 else:
@@ -207,30 +210,17 @@ class ManegeTasks(View):
 
         elif type == 'edit_end_time':
             task_id = request.POST['task_id']
-            end_time = request.POST['new_end_time']
+            new_end_time = request.POST['new_end_time']
             task = Task.objects.filter(id=task_id).first()
 
+            if not task:
+                return JsonResponse({'error': 'Task not found'}, status=404)
+
             if user == task.project.owner:
-                task.end_time = end_time
+                task.end_time = new_end_time
                 task.save()
                 return JsonResponse({"message": "OK"}, status=200)
             else:
                 return JsonResponse({"error": "You Do Not Have Permission"}, status=403)
-
-        elif type == 'change_status':
-            task_id = request.POST['task_id']
-            new_status = request.POST['new_status']
-            try:
-                task = Task.objects.get(id=task_id)
-                if new_status and new_status in [choice[0] for choice in Task.status_choices]:
-                    task.status = new_status
-                    task.save()
-                    return JsonResponse({'success': True}, status=200)
-                else:
-                    return JsonResponse({'success': False, 'error': 'Invalid status'}, status=400)
-            except Task.DoesNotExist:
-                return JsonResponse({'success': False, 'error': 'Task not found'}, status=404)
-            except Exception as e:
-                return JsonResponse({'success': False, 'error': str(e)}, status=500)
 
         return JsonResponse({'error': 'Invalid request'}, status=400)

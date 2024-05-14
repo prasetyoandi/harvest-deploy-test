@@ -208,13 +208,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <!-- Add change status buttons here -->
-                            <button type="button" class="btn btn-primary change-status-btn" data-task-id="{{ t.id }}" data-status="T">To Do</button>
-                            <button type="button" class="btn btn-primary change-status-btn" data-task-id="{{ t.id }}" data-status="D">Doing</button>
-                            <!-- Add more buttons for other statuses -->
-                            <button id="changeStatusButton" data-task-id="1">Change Status</button>
-
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="changeStatusButton" data-task-id="1">Change Status</button>
                         </div>                        
                     </div>
                 </div>
@@ -228,13 +222,16 @@
 
 {% block js %}
     <script src="http://code.jquery.com/ui/1.8.17/jquery-ui.min.js"></script>
-    <script src="{% static '/plugins/custom/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js' %}"></script>
-    <script src="{% static '/plugins/custom/kanban/kanban.bundle.js' %}"></script>
-    <script src="{% static '/plugins/custom/fullcalendar/fullcalendar.bundle.js' %}"></script>
-    <script src="{% static '/js/pages/my-script.js' %}"></script>
+    <script src="{% static 'plugins/custom/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js' %}"></script>
+    <script src="{% static 'plugins/custom/kanban/kanban.bundle.js' %}"></script>
+    <script src="{% static 'plugins/custom/fullcalendar/fullcalendar.bundle.js' %}"></script>
+    <script src="{% static 'js/pages/my-script.js' %}"></script>
 
     <script>
         "use strict";
+
+        // CSRF Token setup
+        var csrfToken = "{{ csrf_token }}";
 
         // Class definition
         var KTKanbanBoardDemo = function () {
@@ -261,14 +258,14 @@
                                             'id': {{ t.id }},
                                             'title': `
                                 <div class="d-flex align-items-center">
-                        	        <div class="symbol symbol-success mr-3">
-                        	            <img alt="Pic" src="{% static t.assigned_to.profile.profile_photo %}" />
-                        	        </div>
-                        	        <div class="d-flex flex-column align-items-start">
-                        	            <span class="text-dark-50 font-weight-bold mb-1">{{t.name}}</span>
-                        	            <span class="label label-inline label-light-dark font-weight-bold">{{t.end_time}}</span>
-                        	        </div>
-                        	    </div>`
+                                    <div class="symbol symbol-success mr-3">
+                                        <img alt="Pic" src="{% static t.assigned_to.profile.profile_photo %}" />
+                                    </div>
+                                    <div class="d-flex flex-column align-items-start">
+                                        <span class="text-dark-50 font-weight-bold mb-1">{{t.name}}</span>
+                                        <span class="label label-inline label-light-dark font-weight-bold">{{t.end_time}}</span>
+                                    </div>
+                                </div>`
                                         },
                                     {% endif %}
                                 {% endfor %}
@@ -284,14 +281,14 @@
                                         'id': {{ t.id }},
                                         'title': `
                                 <div class="d-flex align-items-center">
-                        	        <div class="symbol symbol-success mr-3">
-                        	            <img alt="Pic" src="{% static t.assigned_to.profile.profile_photo %}" />
-                        	        </div>
-                        	        <div class="d-flex flex-column align-items-start">
-                        	            <span class="text-dark-50 font-weight-bold mb-1">{{t.name}}</span>
-                        	            <span class="label label-inline label-light-success font-weight-bold">{{t.end_time}}</span>
-                        	        </div>
-                        	    </div>`
+                                    <div class="symbol symbol-success mr-3">
+                                        <img alt="Pic" src="{% static t.assigned_to.profile.profile_photo %}" />
+                                    </div>
+                                    <div class="d-flex flex-column align-items-start">
+                                        <span class="text-dark-50 font-weight-bold mb-1">{{t.name}}</span>
+                                        <span class="label label-inline label-light-success font-weight-bold">{{t.end_time}}</span>
+                                    </div>
+                                </div>`
                                     },
                                 {% endif %}
                             {% endfor %}
@@ -307,14 +304,14 @@
                                         'id': {{ t.id }},
                                         'title': `
                                 <div class="d-flex align-items-center">
-                        	        <div class="symbol symbol-success mr-3">
-                        	            <img alt="Pic" src="{% static t.assigned_to.profile.profile_photo %}" />
-                        	        </div>
-                        	        <div class="d-flex flex-column align-items-start">
-                        	            <span class="text-dark-50 font-weight-bold mb-1">{{t.name}}</span>
-                        	            <span class="label label-inline label-light-warning font-weight-bold">{{t.end_time}}</span>
-                        	        </div>
-                        	    </div>`
+                                    <div class="symbol symbol-success mr-3">
+                                        <img alt="Pic" src="{% static t.assigned_to.profile.profile_photo %}" />
+                                    </div>
+                                    <div class="d-flex flex-column align-items-start">
+                                        <span class="text-dark-50 font-weight-bold mb-1">{{t.name}}</span>
+                                        <span class="label label-inline label-light-warning font-weight-bold">{{t.end_time}}</span>
+                                    </div>
+                                </div>`
                                     },
                                 {% endif %}
                             {% endfor %}
@@ -330,14 +327,14 @@
                                         'id': {{ t.id }},
                                         'title': `
                                 <div class="d-flex align-items-center">
-                        	        <div class="symbol symbol-success mr-3">
-                        	            <img alt="Pic" src="{% static t.assigned_to.profile.profile_photo %}" />
-                        	        </div>
-                        	        <div class="d-flex flex-column align-items-start">
-                        	            <span class="text-dark-50 font-weight-bold mb-1">{{t.name}}</span>
-                        	            <span class="label label-inline label-light-primary font-weight-bold">{{t.end_time}}</span>
-                        	        </div>
-                        	    </div>`
+                                    <div class="symbol symbol-success mr-3">
+                                        <img alt="Pic" src="{% static t.assigned_to.profile.profile_photo %}" />
+                                    </div>
+                                    <div class="d-flex flex-column align-items-start">
+                                        <span class="text-dark-50 font-weight-bold mb-1">{{t.name}}</span>
+                                        <span class="label label-inline label-light-primary font-weight-bold">{{t.end_time}}</span>
+                                    </div>
+                                </div>`
                                     },
                                 {% endif %}
                             {% endfor %}
@@ -353,14 +350,14 @@
                                         'id': {{ t.id }},
                                         'title': `
                                 <div class="d-flex align-items-center">
-                        	        <div class="symbol symbol-success mr-3">
-                        	            <img alt="Pic" src="{% static t.assigned_to.profile.profile_photo %}" />
-                        	        </div>
-                        	        <div class="d-flex flex-column align-items-start">
-                        	            <span class="text-dark-50 font-weight-bold mb-1">{{t.name}}</span>
-                        	            <span class="label label-inline label-light-danger font-weight-bold">{{t.end_time}}</span>
-                        	        </div>
-                        	    </div>`
+                                    <div class="symbol symbol-success mr-3">
+                                        <img alt="Pic" src="{% static t.assigned_to.profile.profile_photo %}" />
+                                    </div>
+                                    <div class="d-flex flex-column align-items-start">
+                                        <span class="text-dark-50 font-weight-bold mb-1">{{t.name}}</span>
+                                        <span class="label label-inline label-light-danger font-weight-bold">{{t.end_time}}</span>
+                                    </div>
+                                </div>`
                                     },
                                 {% endif %}
                             {% endfor %}
@@ -376,14 +373,14 @@
                                         'id': {{ t.id }},
                                         'title': `
                                 <div class="d-flex align-items-center">
-                        	        <div class="symbol symbol-success mr-3">
-                        	            <img alt="Pic" src="{% static t.assigned_to.profile.profile_photo %}" />
-                        	        </div>
-                        	        <div class="d-flex flex-column align-items-start">
-                        	            <span class="text-dark-50 font-weight-bold mb-1">{{t.name}}</span>
-                        	            <span class="label label-inline label-light-danger font-weight-bold">{{t.end_time}}</span>
-                        	        </div>
-                        	    </div>`
+                                    <div class="symbol symbol-success mr-3">
+                                        <img alt="Pic" src="{% static t.assigned_to.profile.profile_photo %}" />
+                                    </div>
+                                    <div class="d-flex flex-column align-items-start">
+                                        <span class="text-dark-50 font-weight-bold mb-1">{{t.name}}</span>
+                                        <span class="label label-inline label-light-danger font-weight-bold">{{t.end_time}}</span>
+                                    </div>
+                                </div>`
                                     },
                                 {% endif %}
                             {% endfor %}
@@ -397,11 +394,11 @@
                         let eid = $(el).data("eid");
                         let bid = $(el.parentElement.parentElement).data("id");
                         $(el).removeClass('dragged');
-                        jQuery.ajax(`/boards/${eid}/task`, {
-                            headers: {"X-CSRFToken": $(`{% csrf_token %}`).val()},
+
+                        $.ajax(`/boards/${eid}/task`, {
+                            headers: {"X-CSRFToken": csrfToken},
                             type: 'POST',
                             data: {
-                                "_token": "{{ csrf_token }}",
                                 type: "edit_status",
                                 task_id: eid,
                                 board_id: bid
@@ -413,7 +410,7 @@
                                 console.error('Error changing task status:', response.responseJSON.error);
                             }
                         });
-                    },
+                    }
                 });
 
                 // Touch start event handler
@@ -422,7 +419,7 @@
                     event.preventDefault();
 
                     // Add class for dragged element
-                    event.target.classList.add('dragged')
+                    event.target.classList.add('dragged');
                 }
 
                 // Touch move event handler
@@ -475,9 +472,7 @@
 
                     var calendarEl = document.getElementById('kt_calendar');
                     var calendar = new FullCalendar.Calendar(calendarEl, {
-                        plugins: ['bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list'],
-                        themeSystem: 'bootstrap',
-
+                        plugins: ['dayGrid', 'timeGrid', 'list', 'interaction'],
                         isRTL: KTUtil.isRTL(),
 
                         header: {
@@ -539,19 +534,18 @@
                             let id = info.event.id;
                             let year = info.event.start.getFullYear();
                             let month = info.event.start.getMonth() + 1;
-                            let day = info.event.start.getDate()
-                            console.log(id, `${year}-${month}-${day}`)
+                            let day = info.event.start.getDate();
+                            console.log(id, `${year}-${month}-${day}`);
 
                             jQuery.ajax(`/boards/${id}/task`, {
-                                headers: {"X-CSRFToken": $(`{% csrf_token %}`).val()},
+                                headers: {"X-CSRFToken": csrfToken},
                                 type: 'POST',
                                 data: {
-                                    "_token": "{{ csrf_token }}",
                                     type: "edit_end_time",
                                     task_id: id,
                                     new_end_time: `${year}-${month}-${day}`
                                 },
-                                error: (data) => {
+                                error: function (data) {
                                     $('[data-switch=true]').bootstrapSwitch();
                                     let content = {};
                                     content.message = data.responseJSON.error;
@@ -580,7 +574,7 @@
                                     KTApp.initPopover(element);
                                 } else if (element.hasClass('fc-time-grid-event')) {
                                     element.find('.fc-title').append('<div class="fc-description">' + info.event.extendedProps.description + '</div>');
-                                } else if (element.find('.fc-list-item-title').lenght !== 0) {
+                                } else if (element.find('.fc-list-item-title').length !== 0) {
                                     element.find('.fc-list-item-title').append('<div class="fc-description">' + info.event.extendedProps.description + '</div>');
                                 }
                             }
@@ -597,27 +591,30 @@
             KTCalendarBasic.init();
         });
 
-        $('#changeStatusButton').click(function() {
-            let taskId = $(this).data('task-id');
-            let newStatus = 'D';
+        $(document).ready(function() {
+            $('#changeStatusButton').click(function() {
+                let taskId = $(this).data('task-id');
+                let newStatus = 'D'; // Example new status
 
-            $.ajax({
-                url: `/boards/${taskId}/task`,
-                type: 'POST',
-                headers: {
-                    "X-CSRFToken": "{{ csrf_token }}"
-                },
-                data: {
-                    type: "change_status",
-                    task_id: taskId,
-                    new_status: newStatus
-                },
-                success: function(response) {
-                    console.log('Task status updated successfully:', response);
-                },
-                error: function(response) {
-                    console.error('Error changing task status:', response.responseJSON.error);
-                }
+                $.ajax({
+                    url: `/boards/${taskId}/task`,
+                    type: 'POST',
+                    headers: {
+                        "X-CSRFToken": csrfToken
+                    },
+                    data: {
+                        type: "change_status",
+                        task_id: taskId,
+                        new_status: newStatus
+                    },
+                    success: function(response) {
+                        console.log('Task status updated successfully:', response);
+                        location.reload(); // Reload the page to reflect changes
+                    },
+                    error: function(response) {
+                        console.error('Error changing task status:', response.responseJSON.error);
+                    }
+                });
             });
         });
 
