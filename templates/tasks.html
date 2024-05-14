@@ -395,7 +395,8 @@
                         let bid = $(el.parentElement.parentElement).data("id");
                         $(el).removeClass('dragged');
 
-                        $.ajax(`/boards/${eid}/task`, {
+                        $.ajax({
+                            url: `/boards/${eid}/task`,
                             headers: {"X-CSRFToken": csrfToken},
                             type: 'POST',
                             data: {
@@ -537,7 +538,8 @@
                             let day = info.event.start.getDate();
                             console.log(id, `${year}-${month}-${day}`);
 
-                            jQuery.ajax(`/boards/${id}/task`, {
+                            jQuery.ajax({
+                                url: `/boards/${id}/task`,
                                 headers: {"X-CSRFToken": csrfToken},
                                 type: 'POST',
                                 data: {
