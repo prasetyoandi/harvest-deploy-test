@@ -213,6 +213,8 @@
                             <button type="button" class="btn btn-primary change-status-btn" data-task-id="{{ t.id }}" data-status="T">To Do</button>
                             <button type="button" class="btn btn-primary change-status-btn" data-task-id="{{ t.id }}" data-status="D">Doing</button>
                             <!-- Add more buttons for other statuses -->
+                            <button id="changeStatusButton" data-task-id="1">Change Status</button>
+
                         </div>                        
                     </div>
                 </div>
@@ -390,10 +392,6 @@
                     ],
                     dragEl: function (el, source) {
                         $(el).addClass('dragged');
-                        // Enable touch events
-                        el.addEventListener('touchstart', touchStart, false);
-                        el.addEventListener('touchmove', touchMove, false);
-                        el.addEventListener('touchend', touchEnd, false);
                     },
                     dragendEl: function (el) {
                         let eid = $(el).data("eid");
@@ -408,21 +406,11 @@
                                 task_id: eid,
                                 board_id: bid
                             },
-                            error: (data) => {
-                                $('[data-switch=true]').bootstrapSwitch();
-                                let content = {};
-                                content.message = data.responseJSON.error;
-                                $.notify(content, {
-                                    type: 'danger',
-                                    placement: {
-                                        from: 'bottom',
-                                        align: 'left'
-                                    },
-                                    offset: {
-                                        x: 30,
-                                        y: 30
-                                    },
-                                });
+                            success: function(response) {
+                                console.log('Task status updated successfully:', response);
+                            },
+                            error: function(response) {
+                                console.error('Error changing task status:', response.responseJSON.error);
                             }
                         });
                     },
@@ -607,6 +595,30 @@
         jQuery(document).ready(function () {
             KTKanbanBoardDemo.init();
             KTCalendarBasic.init();
+        });
+
+        $('#changeStatusButton').click(function() {
+            let taskId = $(this).data('task-id');
+            let newStatus = 'D';
+
+            $.ajax({
+                url: `/boards/${taskId}/task`,
+                type: 'POST',
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                data: {
+                    type: "change_status",
+                    task_id: taskId,
+                    new_status: newStatus
+                },
+                success: function(response) {
+                    console.log('Task status updated successfully:', response);
+                },
+                error: function(response) {
+                    console.error('Error changing task status:', response.responseJSON.error);
+                }
+            });
         });
 
     </script>

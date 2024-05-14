@@ -117,39 +117,36 @@ var KTFormWidgetsValidation = function () {
 
 
         // UNTUK MANAGE TASK BUTTON
+        // var csrfToken = '{{ csrf_token }}';
 
-        // Add event listener for change status button
-        $('.change-status-btn').click(function(event) {
-            var taskId = $(this).data('task-id');
-            var newStatus = $(this).data('status');
-            console.log('Task ID:', taskId, 'New Status:', newStatus);
-
-            // Send AJAX request to update task status
-            $.ajax({
-                url: '/boards/' + taskId + '/task/',
-                type: 'POST',
-                data: {
-                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(), // Get CSRF token
-                    'type': 'change_status',
-                    'task_id': taskId,
-                    'new_status': newStatus
-                },
-                success: function(response) {
-                    if (response.success) {
-                        console.log('Task status changed successfully');
-                        // Optionally, update UI here
-                    } else {
-                        console.error('Error changing task status:', response.error);
-                    }
-                },
-                error: function(xhr, textStatus, errorThrown) {
-                    console.error('Error changing task status:', errorThrown);
-                }
-            });
-        });
-
-
-
+        // $(document).ready(function() {
+        //     $('#changeStatusButton').click(function() {
+        //         let taskId = $(this).data('task-id');
+        //         let newStatus = 'D'; // Example new status
+        
+        //         $.ajax({
+        //             url: `/boards/${taskId}/task`,
+        //             type: 'POST',
+        //             headers: {
+        //                 "X-CSRFToken": "{{ csrf_token }}"
+        //             },
+        //             data: {
+        //                 type: "change_status",
+        //                 task_id: taskId,
+        //                 new_status: newStatus
+        //             },
+        //             success: function(response) {
+        //                 console.log('Task status updated successfully:', response);
+        //                 // Update the UI accordingly
+        //             },
+        //             error: function(response) {
+        //                 console.error('Error changing task status:', response.responseJSON.error);
+        //             }
+        //         });
+        //     });
+        // });
+        
+        
         // untuk kalkulator
         // Select2 kertas
 

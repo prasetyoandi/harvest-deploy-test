@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
+from django.core.exceptions import PermissionDenied
 
 from reports.models import ProjectInfo
 from .models import Task, Project, KalkulatorCetak
@@ -147,7 +148,6 @@ class Tasks(View):
             return redirect("signIn")
 
         proj = Project.objects.filter(id=id).first()
-        print(f"proj: {proj}")
         user = request.user
         users = User.objects.filter(Q(id__in=proj.get_members()) | Q(id=proj.owner.id))
         data = {"user": user,
@@ -179,9 +179,7 @@ class ManegeTasks(View):
         print('Received POST request to ManegeTasks view')
         print('Request POST data:', request.POST)
         if not request.user.is_authenticated:
-            response = JsonResponse({"error": "Invalid User"})
-            response.status_code = 403
-            return response
+            return JsonResponse({"error": "Invalid User"}, status=403)
 
         user = request.user
         type = request.POST['type']
@@ -195,11 +193,8 @@ class ManegeTasks(View):
                 if user == task.project.owner:
                     task.status = status
                     task.save()
-
                 else:
-                    response = JsonResponse({"error": "You Do Not Have Permission"})
-                    response.status_code = 403
-                    return response
+                    return JsonResponse({"error": "You Do Not Have Permission"}, status=403)
             else:
                 if user == task.assigned_to or user == task.project.owner:
                     task.status = status
@@ -207,14 +202,21 @@ class ManegeTasks(View):
                         task.start_time = datetime.datetime.today().date()
                     task.save()
                 else:
-                    response = JsonResponse({"error": "You Do Not Have Permission"})
-                    response.status_code = 403
-                    return response
+                    return JsonResponse({"error": "You Do Not Have Permission"}, status=403)
+            return JsonResponse({"message": "OK"}, status=200)
 
-            response = JsonResponse({"message": "OK"})
-            response.status_code = 200
-            return response
-        
+        elif type == 'edit_end_time':
+            task_id = request.POST['task_id']
+            end_time = request.POST['new_end_time']
+            task = Task.objects.filter(id=task_id).first()
+
+            if user == task.project.owner:
+                task.end_time = end_time
+                task.save()
+                return JsonResponse({"message": "OK"}, status=200)
+            else:
+                return JsonResponse({"error": "You Do Not Have Permission"}, status=403)
+
         elif type == 'change_status':
             task_id = request.POST['task_id']
             new_status = request.POST['new_status']
@@ -223,30 +225,12 @@ class ManegeTasks(View):
                 if new_status and new_status in [choice[0] for choice in Task.status_choices]:
                     task.status = new_status
                     task.save()
-                    return JsonResponse({'success': True})
+                    return JsonResponse({'success': True}, status=200)
                 else:
-                    return JsonResponse({'success': False, 'error': 'Invalid status'})
+                    return JsonResponse({'success': False, 'error': 'Invalid status'}, status=400)
             except Task.DoesNotExist:
-                return JsonResponse({'success': False, 'error': 'Task not found'})
+                return JsonResponse({'success': False, 'error': 'Task not found'}, status=404)
             except Exception as e:
-                return JsonResponse({'success': False, 'error': str(e)})
+                return JsonResponse({'success': False, 'error': str(e)}, status=500)
 
-        if type == 'edit_end_time':
-
-            task_id = request.POST['task_id']
-            end_time = request.POST['new_end_time']
-
-            task = Task.objects.filter(id=task_id).first()
-
-            if user == task.project.owner:
-                task.end_time = end_time
-                task.save()
-
-                response = JsonResponse({"message": "OK"})
-                response.status_code = 200
-                return response
-
-            else:
-                response = JsonResponse({"error": "You Do Not Have Permission"})
-                response.status_code = 403
-                return response
+        return JsonResponse({'error': 'Invalid request'}, status=400)
