@@ -208,12 +208,14 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary changeStatusButton" data-task_id="{{ t.id }}" data-status="T">Masuk</button>
-                            <button type="button" class="btn btn-primary changeStatusButton" data-task_id="{{ t.id }}" data-status="D">Dalam Proses</button>
-                            <button type="button" class="btn btn-info changeStatusButton" data-task_id="{{ t.id }}" data-status="I">Finish</button>
-                            <button type="button" class="btn btn-success changeStatusButton" data-task_id="{{ t.id }}" data-status="O">Selesai</button>
-                            <button type="button" class="btn btn-danger changeStatusButton" data-task_id="{{ t.id }}" data-status="B">Pending</button>
-                            <button type="button" class="btn btn-dark changeStatusButton" data-task_id="{{ t.id }}" data-status="L">Cancel</button>
+                            <div class="btn-group" role="group" aria-label="Status Change Buttons">
+                                <button type="button" class="btn btn-secondary changeStatusButton" data-task_id="{{ t.id }}" data-status="T">Masuk</button>
+                                <button type="button" class="btn btn-primary changeStatusButton" data-task_id="{{ t.id }}" data-status="D">Dalam Proses</button>
+                                <button type="button" class="btn btn-info changeStatusButton" data-task_id="{{ t.id }}" data-status="I">Finish</button>
+                                <button type="button" class="btn btn-success changeStatusButton" data-task_id="{{ t.id }}" data-status="O">Selesai</button>
+                                <button type="button" class="btn btn-danger changeStatusButton" data-task_id="{{ t.id }}" data-status="B">Pending</button>
+                                <button type="button" class="btn btn-dark changeStatusButton" data-task_id="{{ t.id }}" data-status="L">Cancel</button>
+                            </div>
                         </div>                        
                     </div>
                 </div>
