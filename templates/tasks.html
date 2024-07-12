@@ -208,7 +208,12 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="changeStatusButton" data-task-id="1">Change Status</button>
+                            <button type="button" class="btn btn-secondary changeStatusButton" data-task_id="{{ t.id }}" data-status="T">Masuk</button>
+                            <button type="button" class="btn btn-primary changeStatusButton" data-task_id="{{ t.id }}" data-status="D">Dalam Proses</button>
+                            <button type="button" class="btn btn-info changeStatusButton" data-task_id="{{ t.id }}" data-status="I">Finish</button>
+                            <button type="button" class="btn btn-success changeStatusButton" data-task_id="{{ t.id }}" data-status="O">Selesai</button>
+                            <button type="button" class="btn btn-danger changeStatusButton" data-task_id="{{ t.id }}" data-status="B">Pending</button>
+                            <button type="button" class="btn btn-dark changeStatusButton" data-task_id="{{ t.id }}" data-status="L">Cancel</button>
                         </div>                        
                     </div>
                 </div>
@@ -594,9 +599,19 @@
         });
 
         $(document).ready(function() {
-            $('#changeStatusButton').click(function() {
-                let taskId = $(this).data('task-id');
-                let newStatus = 'D'; // Example new status
+            $(document).on('click', '.changeStatusButton', function() {
+                let taskId = $(this).data('task_id');
+                let newStatus = $(this).data('status');
+                console.log('Button clicked:', this);
+                console.log('data-task_id:', $(this).attr('data-task_id'));
+                console.log('data-status:', $(this).attr('data-status'));
+                console.log('Task ID:', taskId);
+                console.log('New Status:', newStatus);
+
+                if (!taskId) {
+                    console.error('Task ID is missing');
+                    return;
+                }
 
                 $.ajax({
                     url: `/boards/${taskId}/task`,
@@ -610,8 +625,8 @@
                         new_status: newStatus
                     },
                     success: function(response) {
-                        console.log('Task status updated successfully:', response);
-                        location.reload(); // Reload the page to reflect changes
+                    console.log('Task status updated successfully:', response);
+                    location.reload(); // Reload the page to reflect changes
                     },
                     error: function(response) {
                         console.error('Error changing task status:', response.responseJSON.error);
@@ -619,6 +634,8 @@
                 });
             });
         });
+
+        
 
     </script>
 {% endblock %}

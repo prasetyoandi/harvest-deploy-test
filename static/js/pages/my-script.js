@@ -29,6 +29,11 @@ var KTFormWidgetsValidation = function () {
             validator.revalidateField('deadline');
         });
 
+        // untuk task
+        $(document).on('click', '.changeStatusButton', function() {
+            // ... (rest of the function code)
+        });
+
         // Select2 user
         $('#kt_select2_3').select2({
             placeholder: "Select a user",
@@ -113,39 +118,6 @@ var KTFormWidgetsValidation = function () {
             // Revalidate field
             validator.revalidateField('ukuran_bahan');
         });
-
-
-
-        // UNTUK MANAGE TASK BUTTON
-        // var csrfToken = '{{ csrf_token }}';
-
-        // $(document).ready(function() {
-        //     $('#changeStatusButton').click(function() {
-        //         let taskId = $(this).data('task-id');
-        //         let newStatus = 'D'; // Example new status
-        
-        //         $.ajax({
-        //             url: `/boards/${taskId}/task`,
-        //             type: 'POST',
-        //             headers: {
-        //                 "X-CSRFToken": "{{ csrf_token }}"
-        //             },
-        //             data: {
-        //                 type: "change_status",
-        //                 task_id: taskId,
-        //                 new_status: newStatus
-        //             },
-        //             success: function(response) {
-        //                 console.log('Task status updated successfully:', response);
-        //                 // Update the UI accordingly
-        //             },
-        //             error: function(response) {
-        //                 console.error('Error changing task status:', response.responseJSON.error);
-        //             }
-        //         });
-        //     });
-        // });
-        
         
         // untuk kalkulator
         // Select2 kertas

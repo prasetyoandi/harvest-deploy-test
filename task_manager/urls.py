@@ -6,4 +6,6 @@ urlpatterns = [
     path('<id>', Tasks.as_view(), name='tasks'),
     path('<id>/delete', MangeProject.as_view(), name='delete_project'),
     path('<id>/task', ManegeTasks.as_view(), name='manage_tasks'),
+    path('<task_id>/task', ManegeTasks.as_view(), name='manage_tasks')
+
 ]

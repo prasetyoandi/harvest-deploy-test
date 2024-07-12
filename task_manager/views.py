@@ -200,24 +200,28 @@ class ManegeTasks(View):
             if not task:
                 return JsonResponse({'error': 'Task not found'}, status=404)
 
-            if new_status in ['O', 'B', 'L'] or task.status in ['O', 'B', 'L']:
-                if user == task.project.owner:
-                    task.status = new_status
-                    task.save()
+            if new_status in ['T', 'D', 'I', 'O', 'B', 'L']:
+                if new_status in ['O', 'B', 'L'] or task.status in ['O', 'B', 'L']:
+                    if user == task.project.owner:
+                        task.status = new_status
+                        task.save()
+                    else:
+                        return JsonResponse({"error": "You do not have permission"}, status=403)
                 else:
-                    return JsonResponse({"error": "You do not have permission"}, status=403)
+                    if user == task.assigned_to or user == task.project.owner:
+                        task.status = new_status
+                        if new_status == 'D':
+                            task.start_time = datetime.datetime.today().date()
+                        task.save()
+                    else:
+                        return JsonResponse({"error": "You do not have permission"}, status=403)
+                return JsonResponse({"message": "OK"}, status=200)
             else:
-                if user == task.assigned_to or user == task.project.owner:
-                    task.status = new_status
-                    if new_status == 'D':
-                        task.start_time = datetime.datetime.today().date()
-                    task.save()
-                else:
-                    return JsonResponse({"error": "You do not have permission"}, status=403)
-            return JsonResponse({"message": "OK"}, status=200)
+                return JsonResponse({"error": "Invalid status"}, status=400)
 
         elif request_type == 'edit_end_time':
             task_id = request.POST.get('task_id')
+            print("Received task_id:", task_id)
             new_end_time = request.POST.get('new_end_time')
             
             if not task_id or not new_end_time:
@@ -236,3 +240,4 @@ class ManegeTasks(View):
                 return JsonResponse({"error": "You do not have permission"}, status=403)
 
         return JsonResponse({'error': 'Invalid request type'}, status=400)
+    
