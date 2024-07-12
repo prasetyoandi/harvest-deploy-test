@@ -373,9 +373,9 @@
                         <div class="d-flex flex-column-fluid">
                             <!--begin::Container-->
                             <div class="container">
-                                <!--begin::Table-->
+                <!--begin::Table-->
                 <div class="table-responsive">
-                    <table class="table table-head-custom table-head-bg table-borderless table-vertical-center">
+                    <table class="table table-head-custom table-head-bg table-bordered table-vertical-center bg-light rounded">
                         <thead>
                             <tr class="bg-gray-100 text-left">
                                 <th style="min-width: 250px" class="pl-7">
@@ -391,7 +391,7 @@
                         </thead>
                         <tbody>
                             {% for proj in projects %}
-                            <tr>
+                            <tr class="bg-white">
                                 <td class="pl-0 py-8">
                                     <div class="d-flex align-items-center">
                                         <div class="symbol symbol-40 symbol-light-success mr-5">
@@ -468,6 +468,7 @@
                     </table>
                 </div>
                 <!--end::Table-->
+
                 <!--begin::Pagination-->
                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                     {% for proj in projects %}
