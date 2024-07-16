@@ -17,7 +17,7 @@
                          style="background-image: url({% static '/media/bg/bg-6.jpg' %});">
                         <div class="col-md-9">
                             <div class="d-flex justify-content-between pb-10 pb-md-20 flex-column flex-md-row">
-                                <h1 class="display-4 text-white font-weight-boldest mb-10">Rekap</h1>
+                                <h1 class="display-4 text-white font-weight-boldest mb-10">SPK CETAK</h1>
                                 <div class="d-flex flex-column align-items-md-end px-0">
                                     <span class="text-white d-flex flex-column align-items-md-end opacity-70">
 															<span>Harvest Offset Manager</span>
@@ -63,96 +63,126 @@
                     <!-- begin: Invoice body-->
                     <div class="row justify-content-center py-8 px-8 py-md-10 px-md-0">
                         <div class="col-md-9">
-                            <div class="table-responsive">
-                                <span class="font-weight-bolder font-size-h3 mb-6">Semua Status Pekerjaan :</span>
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th class="pl-0 font-weight-bold text-muted text-uppercase">Pekerjaan</th>
-                                        <th class="text-right font-weight-bold text-muted text-uppercase">Masuk</th>
-                                        <th class="text-right font-weight-bold text-muted text-uppercase">Dalam Proses
-                                        </th>
-                                        <th class="text-right font-weight-bold text-muted text-uppercase">Finishing
-                                        </th>
-                                        <th class="text-right font-weight-bold text-muted text-uppercase">Selesai
-                                        </th>
-                                        <th class="text-right pr-0 font-weight-bold text-muted text-uppercase">PROGRESS
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for p in p_info %}
-                                        <tr class="font-weight-boldest border-bottom-0 font-size-lg">
-                                            <td class="border-top-0 pl-0 py-4">{{ p.name }}</td>
-                                            <td class="border-top-0 text-right py-4">{{ p.t }}</td>
-                                            <td class="border-top-0 text-right py-4">{{ p.d }}</td>
-                                            <td class="border-top-0 text-right py-4">{{ p.i }}</td>
-                                            <td class="border-top-0 text-right py-4">{{ p.o }}</td>
-                                            <td class="text-danger border-top-0 pr-0 py-4 text-right">{{ p.progress }}
-                                                %
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
+                            {% for p in p_info %}
+                                <div class="d-flex justify-content-between flex-column flex-md-row font-size-lg">
+                                    <div class="d-flex flex-column mb-10 mb-md-0">
+                                        <div class="font-weight-bolder font-size-lg mb-3">No & Tanggal :</div>
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <span class="mr-15 font-weight-bold">No. SPK :</span>
+                                            <span class="text-right">{{ p.kode }}</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <span class="mr-15 font-weight-bold">Tanggal SPK :</span>
+                                            <span class="text-right">{{ p.date_spk }}</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <span class="mr-15 font-weight-bold">Tanggal Tenggat :</span>
+                                            <span class="text-danger text-right">{{ p.date_deadline }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <!-- end: Invoice body-->
                     <!-- begin: Invoice footer-->
-                    <div class="row justify-content-center bg-gray-100 py-8 px-8 py-md-10 px-md-0">
-                        <div class="col-md-9">
-                            <div class="d-flex justify-content-between flex-column flex-md-row font-size-lg">
-                                <div class="d-flex flex-column mb-10 mb-md-0">
-                                    <div class="font-weight-bolder font-size-lg mb-3">User Summary :</div>
-                                    <div class="d-flex justify-content-between mb-3">
-                                        <span class="mr-15 font-weight-bold">All TO DO Tasks :</span>
-                                        <span class="text-right">{{ u_info.todo }}</span>
+                    <div class="container">
+                        <div class="row justify-content-center bg-gray-100 py-8 px-8 py-md-10 px-md-0">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {% for p in p_info %}
+                                            <div class="d-flex justify-content-between flex-column flex-md-row font-size-lg">
+                                                <div class="d-flex flex-column mb-10 mb-md-0">
+                                                    <div class="font-weight-bolder font-size-lg mb-3">Data Cetak :</div>
+                                                    <div class="d-flex justify-content-between mb-3">
+                                                        <span class="mr-15 font-weight-bold">Nama File :</span>
+                                                        <span class="text-right">{{ p.name }}</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between mb-3">
+                                                        <span class="mr-15 font-weight-bold">Kertas:</span>
+                                                        <span class="text-right">{{ p.paper }}</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <span class="mr-15 font-weight-bold">gramatur :</span>
+                                                        <span class="text-right">{{ p.gramatur }}</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <span class="mr-15 font-weight-bold">Sisi Cetak :</span>
+                                                        <span class="text-right">{{ p.sisi }}</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <span class="mr-15 font-weight-bold">Jumlah Plat/lbr :</span>
+                                                        <span class="text-right">{{ p.jumlah_plat }}</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <span class="mr-15 font-weight-bold">Ukuran Bahan Cetak :</span>
+                                                        <span class="text-right">{{ p.uk_bahan_cetak }}</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <span class="mr-15 font-weight-bold">Jumlah Cetak :</span>
+                                                        <span class="text-right">{{ p.jumlah_cetak }}</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <span class="mr-15 font-weight-bold">Jumlah Waste :</span>
+                                                        <span class="text-right">{{ p.jumlah_waste }}</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <span class="mr-15 font-weight-bold">Jumlah Kertas :</span>
+                                                        <span class="text-right">{{ p.jumlah_kertas }}</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <span class="mr-15 font-weight-bold">Laminasi :</span>
+                                                        <span class="text-right">{{ p.laminasi }}</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <span class="mr-15 font-weight-bold">Finishing :</span>
+                                                        <span class="text-right">{{ p.finishing }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
                                     </div>
-                                    <div class="d-flex justify-content-between mb-3">
-                                        <span class="mr-15 font-weight-bold">All Doing Tasks:</span>
-                                        <span class="text-right">{{ u_info.doing }}</span>
+                                    <div class="col-md-6">
+                                        {% for p in p_info %}
+                                            <div class="d-flex justify-content-between flex-column flex-md-row font-size-lg">
+                                                <div class="d-flex flex-column mb-10 mb-md-0">
+                                                    <div class="font-weight-bolder font-size-lg mb-3">Data Bahan :</div>
+                                                    <div class="d-flex justify-content-between mb-3">
+                                                        <span class="mr-15 font-weight-bold">Ukuran Bahan :</span>
+                                                        <span class="text-right">{{ p.ukuran_bahan }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
                                     </div>
-                                    <div class="d-flex justify-content-between">
-                                        <span class="mr-15 font-weight-bold">All Done Tasks :</span>
-                                        <span class="text-right">{{ u_info.done }}</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-column text-md-right">
-                                    <span class="font-size-lg font-weight-bolder mb-1">PROGRESS</span>
-                                    <span class="font-size-h2 font-weight-boldest text-danger mb-1">{{ u_info.progress }} %</span>
-                                    <span>Including All Tasks in All Projects</span>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
 
                     <div class="row justify-content-center py-8 px-8 py-md-10 px-md-0">
                         <div class="col-md-9">
                             <div class="table-responsive">
-                                <span class="font-weight-bolder font-size-h3 mb-2">User Status in Projects :</span>
+                                <span class="font-weight-bolder font-size-h3 mb-2">Mengetahui :</span>
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th class="pl-0 font-weight-bold text-muted text-uppercase">Project</th>
-                                        <th class="text-right font-weight-bold text-muted text-uppercase">TO DO</th>
-                                        <th class="text-right font-weight-bold text-muted text-uppercase">Doing</th>
+                                        <th class="pl-0 font-weight-bold text-muted text-uppercase">Admin Produksi</th>
+                                        <th class="text-right font-weight-bold text-muted text-uppercase">Design / Layout</th>
+                                        <th class="text-right font-weight-bold text-muted text-uppercase">Operator Cetak</th>
                                         <th class="text-right font-weight-bold text-muted text-uppercase">Done
-                                        </th>
-                                        <th class="text-right pr-0 font-weight-bold text-muted text-uppercase">PROGRESS
                                         </th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for u in u_in_p %}
+                                        {% for p in p_info %}
                                         <tr class="font-weight-boldest border-bottom-0 font-size-lg">
-                                            <td class="border-top-0 pl-0 py-4">{{ u.name }}</td>
+                                            <td class="border-top-0 pl-0 py-4">Dinda</td>
                                             <td class="border-top-0 text-right py-4">{{ u.u_info.todo }}</td>
                                             <td class="border-top-0 text-right py-4">{{ u.u_info.doing }}</td>
                                             <td class="border-top-0 text-right py-4">{{ u.u_info.done }}</td>
-                                            <td class="text-danger border-top-0 pr-0 py-4 text-right">{{ u.u_info.progress }}
-                                                %
-                                            </td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>

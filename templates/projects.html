@@ -449,7 +449,7 @@
                                                                 <!--begin::Navigation-->
                                                                 <ul class="navi navi-hover">
                                                                     <li class="navi-item">
-                                                                        <a href="/spk" class="navi-link">
+                                                                        <a href="javascript:void(0)" id="{{ proj.project.id }}/spk" class="navi-link prr">
                                                                             <span class="navi-icon">
                                                                                 <i class="flaticon2-download"></i>
                                                                             </span>
@@ -623,7 +623,7 @@
                             </div>
                         </div>
                         <div class="navi-text">
-                            <div class="font-weight-bold">Profile Saya</div>
+                            <div class="font-weight-bold">Jadwal Cetak</div>
                             <div class="text-muted">Account settings and more</div>
                         </div>
                     </div>
@@ -775,5 +775,30 @@
                 }
             });
         });
+    </script>
+    <script>
+        $('.prr').on("click", function (e) {
+        e.preventDefault();
+        var $link = $(this);
+        var projectId = $link.attr('id').split('/')[0];
+
+        swal.fire({
+            text: "Apakah Kamu Yakin Ingin Melihat Laporan?",
+            icon: "question",
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: "Ya!",
+            cancelButtonText: "Batal",
+            customClass: {
+                confirmButton: "btn font-weight-bold btn-light-primary",
+                cancelButton: "btn font-weight-bold btn-light-secondary"
+            }
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                // Navigate to the report page for the specific project
+                window.location.href = `/spk/${projectId}/`;
+            }
+        });
+    });
     </script>
 {% endblock %}

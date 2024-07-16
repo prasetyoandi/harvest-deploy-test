@@ -5,6 +5,21 @@ class ProjectInfo:
     def __init__(self, project):
         self.project = project
         self.name = project.name
+        self.paper = project.paper
+        self.gramatur = project.gramatur
+        self.sisi = project.sisi
+        self.jumlah_plat = project.jumlah_plat
+        self.uk_bahan_cetak = project.uk_bahan_cetak
+        self.jumlah_cetak = project.jumlah_cetak
+        self.jumlah_waste = project.jumlah_waste
+        self.jumlah_kertas = project.jumlah_kertas
+        self.laminasi = project.laminasi
+        self.finishing = project.finishing
+        self.ukuran_bahan = project.ukuran_bahan
+        self.kode = project.kode
+        self.date_spk = project.date_spk
+        self.date_deadline = project.date_deadline
+
         all_tasks = project.task_set.all()
         self.users = []
 
