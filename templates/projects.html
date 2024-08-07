@@ -4,6 +4,14 @@
 {% block title %}Boards{% endblock %}
 
 {% block content %}
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
     <!--begin::Header Mobile-->
     <div id="kt_header_mobile" class="header-mobile">
@@ -382,7 +390,7 @@
                                     </div>
                                     <!--begin::Table-->
                                     <div class="table-responsive">
-                                        <table class="table table-head-custom table-head-bg table-bordered table-vertical-center bg-light rounded">
+                                        <table id="kt_datatable" class="table table-head-custom table-head-bg table-bordered table-vertical-center bg-light rounded">
                                             <thead>
                                                 <tr class="bg-gray-100 text-left">
                                                     <th style="min-width: 250px" class="pl-7">
@@ -479,8 +487,24 @@
                                  <!-- end::table-card -->
                 <!--begin::Pagination-->
                 <div class="d-flex justify-content-between align-items-center flex-wrap">
-                    {% for proj in projects %}
-                    {% if forloop.first %}
+                    <!-- Search and Sort Controls -->
+                    <div class="d-flex align-items-center py-3">
+                        <div class="input-icon mr-3">
+                            <input type="text" id="kt_datatable_search_query" class="form-control form-control-sm text-primary font-weight-bold mr-4 border-0 bg-light-primary" style="width: 150px;" placeholder="Search..."/>
+                            <span><i class="flaticon2-search-1 text-muted"></i></span>
+                        </div>
+                        <select id="kt_datatable_search_status" class="form-control mr-3 form-control-sm text-primary font-weight-bold mr-4 border-0 bg-light-primary" style="width: 150px;">
+                            <option value="">All Status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                        <select id="kt_datatable_search_sort" class="form-control form-control-sm text-primary font-weight-bold mr-4 border-0 bg-light-primary" style="width: 150px;">
+                            <option value="asc">Date Ascending</option>
+                            <option value="desc">Date Descending</option>
+                        </select>
+                    </div>
+                    <!-- Pagination Controls -->
                     <div class="d-flex flex-wrap mr-3">
                         <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1">
                             <i class="ki ki-bold-double-arrow-back icon-xs"></i>
@@ -496,6 +520,7 @@
                             <i class="ki ki-bold-double-arrow-next icon-xs"></i>
                         </a>
                     </div>
+                    <!-- Items Per Page -->
                     <div class="d-flex align-items-center">
                         <select class="form-control form-control-sm text-primary font-weight-bold mr-4 border-0 bg-light-primary" style="width: 75px;">
                             <option value="10">10</option>
@@ -506,8 +531,6 @@
                         </select>
                         <span class="text-muted">Per Page</span>
                     </div>
-                    {% endif %}
-                    {% endfor %}
                 </div>
                 <!--end::Pagination-->
                             </div>
@@ -801,4 +824,46 @@
         });
     });
     </script>
+    <script>
+       $(document).ready(function() {
+        var table = $('#kt_datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: '',
+                type: 'GET',
+                data: function(d) {
+                    d.search = $('#kt_datatable_search_query').val();
+                    d.status = $('#kt_datatable_search_status').val();
+                    d.sort = $('#kt_datatable_search_sort').val();
+                }
+            },
+            columns: [
+                { data: 'project', name: 'project' },
+                { data: 'kode', name: 'kode' },
+                { data: 'spk', name: 'spk' },
+                { data: 'deadline', name: 'deadline' },
+                { data: 'progress', name: 'progress' },
+                { data: 'divisi', name: 'divisi' },
+                { data: 'actions', name: 'actions', orderable: false, searchable: false }
+            ],
+            order: [[2, 'asc']],
+            pageLength: 10,
+            dom: "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+            language: {
+                paginate: {
+                    previous: '<i class="ki ki-bold-arrow-back icon-xs"></i>',
+                    next: '<i class="ki ki-bold-arrow-next icon-xs"></i>'
+                }
+            },
+        });
+
+        $('#kt_datatable_search_query, #kt_datatable_search_status, #kt_datatable_search_sort').on('change keyup', function() {
+            table.draw();
+        });
+    });
+    </script>
+    
+    
 {% endblock %}

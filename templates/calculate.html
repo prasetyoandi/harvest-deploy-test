@@ -74,280 +74,248 @@
                       </div>
                   </div>
                   <!-- end: Invoice header-->
-                  
-                  <div class="row justify-content-center py-8 px-8 py-md-10 px-md-0">
-                      <div class="col-md-9">
-                          <div class="table-responsive">
-                              <span class="font-weight-bolder font-size-h3 mb-2">User Status in Projects :</span>
-                              <table class="table">
-                                  <div class="modal-body">
-                                                      <form id="add_board_from" method="GET">
-                                                          <div class="form">
-                                                              <!-- START: JENIS KERTAS -->
-                                                              <div class="row">
-                                                                  <div class="col-4">
-                                                                      <div class="form-group">
-                                                                          <label>Jenis / GSM
-                                                                              <span class="text-danger">*</span></label><br>
-                                                                          <select name="tipe_kertas" style="width: 100%"
-                                                                                  class="form-control form-control-lg select2"
-                                                                                  id="kt_select2_70"
-                                                                                  name="param">
-                                                                                  <option value="">--- Tipe Kertas ---</option>
-                                                                                  {% for tipe in tipe_kertas_choices %}
-                                                                                      <option value="{{ tipe }}">{{ tipe }}</option>
-                                                                                  {% endfor %}
-                                                                          </select>
-                                                                      </div>
-                                                                  </div>
-                                                                  <div class="col-2">
-                                                                      <div class="form-group">
-                                                                          <label>Ukuran
-                                                                              <span class="text-danger">*</span></label><br>
-                                                                          <select name="ukuran_kertas" style="width: 100%"
-                                                                                  class="form-control form-control-lg select2"
-                                                                                  id="kt_select2_72"
-                                                                                  name="param">
-                                                                                  <option value="">--- Tipe Kertas ---</option>
-                                                                                  {% for value, label in ukuran_kertas_choices %}
-                                                                                      <option value="{{ value }}">{{ label }}</option>
-                                                                                  {% endfor %}
-                                                                          </select>
-                                                                      </div>
-                                                                  </div>
-                                                                  <div class="col-2">
-                                                                    <div class="form-group">
-                                                                      <!-- kosong -->
-                                                                    </div>
-                                                                  </div>
-                                                                  <div class="col-2">
-                                                                      <div class="form-group">
-                                                                        <label>Jumlah
-                                                                          <span class="text-danger">*</span>
-                                                                        </label>
-                                                                        <input type="number" class="form-control" id="kertas_input" name="kertas_input" step="0.01" required>
-                                                                      </div>
-                                                                    </div>
-                                                                  <div class="col-2">
-                                                                      <div class="d-flex flex-column text-md-right">
-                                                                          <span class="font-size-lg font-weight-bolder mb-1">Harga</span>
-                                                                          <span id="harga_display" class="font-size-h2 font-weight-boldest text-danger mb-1"></span>
-                                                                      </div>
-                                                                  </div>
-                                                              </div>
-                                                              
-                                                          <!-- END: JENIS KERTAS -->
 
-                                                          <!-- start ongkosan -->
-                                                          <div class="row">
-                                                              <div class="col-4">
-                                                                  <div class="form-group">
-                                                                          <label>Mesin
-                                                                              <span class="text-danger">*</span></label><br>
-                                                                          <select name="production_cost" style="width: 100%"
-                                                                                  class="form-control form-control-lg select2"
-                                                                                  id="kt_select2_82"
-                                                                                  name="param">
-                                                                                  <option value="">--- Select Ongkosan ---</option>
-                                                                                  {% for value, label in production_cost_choices %}
-                                                                                      <option value="{{ value }}">{{ label }}</option>
-                                                                                  {% endfor %}
-                                                                          </select>
-                                                                      </div>
-                                                              </div>
-                                                              <div class="col-2">
-                                                                  <div class="form-group">
-                                                                          <label>Warna
-                                                                              <span class="text-danger">*</span></label><br>
-                                                                          <select name="set_warna" style="width: 100%"
-                                                                                  class="form-control form-control-lg select2"
-                                                                                  id="kt_select2_setwarna"
-                                                                                  name="param">
-                                                                                  <option value="">--- Select Warna ---</option>
-                                                                                  {% for set in set_warna_choices %}
-                                                                                      <option value="{{ set }}">{{ set }}</option>
-                                                                                  {% endfor %}
-                                                                          </select>
-                                                                      </div>
-                                                              </div>
-                                                              <div class="col-2">
-                                                                  <div class="form-group">
-                                                                    <!-- kosong -->
-                                                                  </div>
-                                                                </div>
-                                                                <div class="col-2">
-                                                                  <div class="form-group">
-                                                                    <label>Jumlah Set
-                                                                      <span class="text-danger">*</span>
-                                                                    </label>
-                                                                    <input type="number" class="form-control" id="set_input" name="set_input" step="0.01" required>
-                                                                  </div>
-                                                                </div>
-                                                              <div class="col-2">
-                                                                  <div class="d-flex flex-column text-md-right">
-                                                                      <span class="font-size-lg font-weight-bolder mb-1">Harga</span>
-                                                                          <span id="ongkos_display" class="font-size-h2 font-weight-boldest text-danger mb-1"></span>
-                                                                  </div>
-                                                              </div>
-                                                          </div>
-                                                          <!-- end ongkosan -->
-
-                                                          <!-- start biaya dreg -->
-                                                          <div class="row">
-                                                              <div class="col-2">
-                                                                  <div class="form-group">
-                                                                    <label>Jml dreg
-                                                                      <span class="text-danger">*</span>
-                                                                    </label>
-                                                                    <input type="number" class="form-control" id="jumlah_dreg" name="jumlah_dreg" step="0.01" required>
-                                                                  </div>
-                                                                </div>
-                                                              <div class="col-4">
-                                                                  <div class="form-group">
-                                                                      <label>Harga Dreg
-                                                                        <span class="text-danger">*</span>
-                                                                      </label>
-                                                                      <select name="ukuran_dreg" style="width: 100%" class="form-control form-control-lg select2" id="ukuran_dreg">
-                                                                        <option value="">--- Select harga Dreg ---</option>
-                                                                        <option value="0">Tanpa Dreg</option>
-                                                                        <option value="110">110 rupiah</option>
-                                                                        <option value="120">120 rupiah</option>
-                                                                      </select>
-                                                                  </div>
-                                                              </div>
-                                                              <div class="col-2">
-                                                                  <div class="form-group">
-                                                                    <!-- kosong -->
-                                                                  </div>
-                                                                </div>
-                                                                <div class="col-2">
-                                                                  <div class="form-group">
-                                                                    <!-- kosong -->
-                                                                  </div>
-                                                                </div>
-                                                              <div class="col-2">
-                                                                  <div class="d-flex flex-column text-md-right">
-                                                                      <span class="font-size-lg font-weight-bolder mb-1">Harga</span>
-                                                                          <span id="dreg_display" class="font-size-h2 font-weight-boldest text-danger mb-1"></span>
-                                                                  </div>
-                                                              </div>
-                                                          </div>
-                                                          <!-- end biaya dreg -->
-
-                                                          <!-- start laminasi -->
-                                                          <div class="row">
-                                                              <div class="col-4">
-                                                                <div class="form-group">
-                                                                  <label>Laminasi
-                                                                    <span class="text-danger">*</span>
-                                                                  </label>
-                                                                  <select name="laminate_type" style="width: 100%" class="form-control form-control-lg select2" id="kt_select2_83">
-                                                                    <option value="">--- Select Laminate Type ---</option>
-                                                                    <option value="0">No Laminate</option>
-                                                                    <option value="0.15">0.15 (glossy)</option>
-                                                                    <option value="0.2">0.2 (doff)</option>
-                                                                  </select>
-                                                                </div>
-                                                              </div>
-                                                              <div class="col-2">
-                                                                  <div class="form-group">
-                                                                    <!-- kosong -->
-                                                                  </div>
-                                                                </div>
-                                                                <div class="col-2">
-                                                                  <div class="form-group">
-                                                                    <!-- kosong -->
-                                                                  </div>
-                                                                </div>
-                                                              <div class="col-2">
-                                                                  <div class="form-group">
-                                                                    <label>Jumlah
-                                                                      <span class="text-danger">*</span>
-                                                                    </label>
-                                                                    <input type="number" class="form-control" id="laminasi_input" name="laminasi_input" step="0.01" required>
-                                                                  </div>
-                                                                </div>
-                                                              <div class="col-2">
-                                                                <div class="d-flex flex-column text-md-right">
-                                                                  <span class="font-size-lg font-weight-bolder mb-1">Harga</span>
-                                                                  <span id="laminasi_display" class="font-size-h2 font-weight-boldest text-danger mb-1"></span>
-                                                                </div>
-                                                              </div>
-                                                            </div>
-
-                                                          <!-- end laminasi -->
-                                                          
-                                                          <!-- start finishing -->
-                                                          <div class="row">
-                                                              <div class="col-6">
-                                                                  <div class="form-group">
-                                                                          <label>Biaya finishing
-                                                                              <span class="text-danger">*</span></label><br>
-                                                                          <select name="tipe_finishing" style="width: 100%"
-                                                                                  class="form-control form-control-lg select2"
-                                                                                  id="kt_select2_54"
-                                                                                  name="param" multiple="multiple">
-                                                                                  <option value="">--- Select Finishing ---</option>
-                                                                                  {% for fin in finishing_cost_choices %}
-                                                                                      <option value="{{ fin }}">{{ fin }}</option>
-                                                                                  {% endfor %}
-                                                                          </select>
-                                                                      </div>
-                                                              </div>
-                                                              <div class="col-2">
-                                                                  <div class="form-group">
-                                                                    <!-- kosong -->
-                                                                  </div>
-                                                                </div>
-                                                              <div class="col-2">
-                                                                  <div class="form-group">
-                                                                    <label>Jumlah
-                                                                      <span class="text-danger">*</span>
-                                                                    </label>
-                                                                    <input type="number" class="form-control" id="finishing_input" name="finishing_input" step="0.01" required>
-                                                                  </div>
-                                                                </div>
-                                                              <div class="col-2">
-                                                                  <div class="d-flex flex-column text-md-right">
-                                                                      <span class="font-size-lg font-weight-bolder mb-1">Harga</span>
-                                                                          <span id="finishing_display" class="font-size-h2 font-weight-boldest text-danger mb-1"></span>
-                                                                  </div>
-                                                              </div>
-                                                          </div>
-                                                          <!-- end finishing -->
-                                                          <!-- start lain-lain -->
-                                                          <div class="row">
-                                                            <div class="col-8">
-                                                                <div class="form-group">
-                                                                        <label>Pisau
-                                                                            <span class="text-danger">*</span></label><br>
-                                                                            <span>Harga pisau otomatis berdasarkan mesin yang dipilih, checklist jika ingin include harga pisau. </span>
-                                                                            <input type="checkbox" id="manualInputCheckbox">
-                                                                    </div>
-                                                            </div>
-                                                            <div class="col-2">
-                                                                <div class="form-group">
-                                                                  <!-- kosong -->
-                                                                </div>
-                                                              </div>
-                                                            <div class="col-2">
-                                                                <div class="d-flex flex-column text-md-right">
-                                                                    <span class="font-size-lg font-weight-bolder mb-1">Harga</span>
-                                                                        <span id="pisau_display" class="font-size-h2 font-weight-boldest text-danger mb-1"></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end lain-lain -->
-                                                      </div>
-
-                                                      </form>
-                                                  </div>
-                              </table>
+                  <!-- begin: modified layout -->
+                  <div class="container-fluid py-4">
+                    <div class="row justify-content-center">
+                      <div class="col-12 col-md-10 col-lg-9">
+                        <h3 class="font-weight-bolder mb-4">User Status in Projects :</h3>
+                        <form id="add_board_from" method="GET">
+                          
+                          <!-- Jenis Kertas -->
+                          <div class="card mb-4">
+                            <div class="card-body">
+                              <h5 class="card-title">Jenis Kertas</h5>
+                              <div class="row">
+                                <div class="col-12 col-md-6 mb-3">
+                                  <div class="form-group">
+                                    <label>Jenis / GSM <span class="text-danger">*</span></label>
+                                    <select name="tipe_kertas" class="form-control select2" id="kt_select2_70">
+                                      <option value="">--- Tipe Kertas ---</option>
+                                      {% for tipe in tipe_kertas_choices %}
+                                        <option value="{{ tipe }}">{{ tipe }}</option>
+                                      {% endfor %}
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                  <div class="form-group">
+                                    <label>Ukuran <span class="text-danger">*</span></label>
+                                    <select name="ukuran_kertas" class="form-control select2" id="kt_select2_72">
+                                      <option value="">--- Tipe Kertas ---</option>
+                                      {% for value, label in ukuran_kertas_choices %}
+                                        <option value="{{ value }}">{{ label }}</option>
+                                      {% endfor %}
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 mb-3">
+                                  <div class="form-group">
+                                    <label>Jumlah <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" id="kertas_input" name="kertas_input" step="0.01" required>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 mb-3">
+                                  <div class="form-group">
+                                    <label>Harga</label>
+                                    <div id="harga_display" class="form-control-plaintext font-weight-bold text-danger"></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
+                  
+                          <!-- Ongkosan -->
+                          <div class="card mb-4">
+                            <div class="card-body">
+                              <h5 class="card-title">Ongkosan</h5>
+                              <div class="row">
+                                <div class="col-12 col-md-6 mb-3">
+                                  <div class="form-group">
+                                    <label>Mesin <span class="text-danger">*</span></label>
+                                    <select name="production_cost" class="form-control select2" id="kt_select2_82">
+                                      <option value="">--- Select Ongkosan ---</option>
+                                      {% for value, label in production_cost_choices %}
+                                        <option value="{{ value }}">{{ label }}</option>
+                                      {% endfor %}
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                  <div class="form-group">
+                                    <label>Warna <span class="text-danger">*</span></label>
+                                    <select name="set_warna" class="form-control select2" id="kt_select2_setwarna">
+                                      <option value="">--- Select Warna ---</option>
+                                      {% for set in set_warna_choices %}
+                                        <option value="{{ set }}">{{ set }}</option>
+                                      {% endfor %}
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 mb-3">
+                                  <div class="form-group">
+                                    <label>Jumlah Set <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" id="set_input" name="set_input" step="0.01" required>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 mb-3">
+                                  <div class="form-group">
+                                    <label>Harga</label>
+                                    <div id="ongkos_display" class="form-control-plaintext font-weight-bold text-danger"></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                  
+                          <!-- Biaya Dreg -->
+                          <div class="card mb-4">
+                            <div class="card-body">
+                              <h5 class="card-title">Biaya Dreg</h5>
+                              <div class="row">
+                                <div class="col-12 col-sm-6 col-md-4 mb-3">
+                                  <div class="form-group">
+                                    <label>Jml dreg <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" id="jumlah_dreg" name="jumlah_dreg" step="0.01" required>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 mb-3">
+                                  <div class="form-group">
+                                    <label>Harga Dreg <span class="text-danger">*</span></label>
+                                    <select name="ukuran_dreg" class="form-control select2" id="ukuran_dreg">
+                                      <option value="">--- Select harga Dreg ---</option>
+                                      <option value="0">Tanpa Dreg</option>
+                                      <option value="110">110 rupiah</option>
+                                      <option value="120">120 rupiah</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 mb-3">
+                                  <div class="form-group">
+                                    <label>Harga</label>
+                                    <div id="dreg_display" class="form-control-plaintext font-weight-bold text-danger"></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                  
+                          <!-- Laminasi -->
+                          <div class="card mb-4">
+                            <div class="card-body">
+                              <h5 class="card-title">Laminasi</h5>
+                              <div class="row">
+                                <div class="col-12 col-md-6 mb-3">
+                                  <div class="form-group">
+                                    <label>Laminasi <span class="text-danger">*</span></label>
+                                    <select name="laminate_type" class="form-control select2" id="kt_select2_83">
+                                      <option value="">--- Select Laminate Type ---</option>
+                                      <option value="0">No Laminate</option>
+                                      <option value="0.15">0.15 (glossy)</option>
+                                      <option value="0.2">0.2 (doff)</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 mb-3">
+                                  <div class="form-group">
+                                    <label>Jumlah <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" id="laminasi_input" name="laminasi_input" step="0.01" required>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 mb-3">
+                                  <div class="form-group">
+                                    <label>Harga</label>
+                                    <div id="laminasi_display" class="form-control-plaintext font-weight-bold text-danger"></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                  
+                          <!-- Finishing -->
+                          <div class="card mb-4">
+                            <div class="card-body">
+                              <h5 class="card-title">Finishing</h5>
+                              <div class="row">
+                                <div class="col-12 col-md-6 mb-3">
+                                  <div class="form-group">
+                                    <label>Biaya finishing <span class="text-danger">*</span></label>
+                                    <select name="tipe_finishing" class="form-control select2" id="kt_select2_54" multiple="multiple">
+                                      <option value="">--- Select Finishing ---</option>
+                                      {% for fin in finishing_cost_choices %}
+                                        <option value="{{ fin }}">{{ fin }}</option>
+                                      {% endfor %}
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 mb-3">
+                                  <div class="form-group">
+                                    <label>Jumlah <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" id="finishing_input" name="finishing_input" step="0.01" required>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 mb-3">
+                                  <div class="form-group">
+                                    <label>Harga</label>
+                                    <div id="finishing_display" class="form-control-plaintext font-weight-bold text-danger"></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                  
+                          <!-- Pisau -->
+                          <div class="card mb-4">
+                            <div class="card-body">
+                              <h5 class="card-title">Pisau</h5>
+                              <div class="row">
+                                <div class="col-12 col-md-8 mb-3">
+                                  <div class="form-group">
+                                    <label>Pisau <span class="text-danger">*</span></label>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" id="manualInputCheckbox">
+                                      <label class="form-check-label" for="manualInputCheckbox">
+                                        Harga pisau otomatis berdasarkan mesin yang dipilih, checklist jika ingin include harga pisau.
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 mb-3">
+                                  <div class="form-group">
+                                    <label>Harga</label>
+                                    <div id="pisau_display" class="form-control-plaintext font-weight-bold text-danger"></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                  
+                        </form>
                       </div>
+                    </div>
                   </div>
-                  <!-- end: Invoice footer-->
-
+                  
+                  <style>
+                  @media (max-width: 767.98px) {
+                    .select2-container {
+                      width: 100% !important;
+                    }
+                    
+                    .font-size-h2 {
+                      font-size: 1.5rem !important;
+                    }
+                    
+                    .font-size-lg {
+                      font-size: 1rem !important;
+                    }
+                  
+                    .card-title {
+                      font-size: 1.25rem;
+                    }
+                  }
+                  </style>
+                  <!-- end: modified layout -->
+                  
                   <!-- begin: Invoice footer-->
                   <div class="row justify-content-center bg-gray-100 py-8 px-8 py-md-10 px-md-0">
                       <div class="col-md-9">
