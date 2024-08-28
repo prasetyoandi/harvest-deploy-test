@@ -1,0 +1,5 @@
+---
+deployment:
+task:
+- export DEPLOYPATH=/home/harvestp/harvest-deploy-test
+- /bin/cp -r * $DEPLOYPATH
